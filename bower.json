@@ -1,6 +1,6 @@
 {
   "name": "GoldenGate",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/wookoouk/GoldenGate",
   "authors": [
     "Martin Page <martin.page@tsl.ac.uk>"
@@ -17,8 +17,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-latest": "~1.2.17",
-    "angular-ui-bootstrap": "~0.11.0",
-    "bootstrap": "~3.1.1"
+    "angular-latest": "~1.2.17"
   }
 }
