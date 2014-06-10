@@ -1,1 +1,2 @@
-$(document).on('page:fetch',   function() { NProgress.start(); });
+NProgress.configure({ showSpinner: false });
+NProgress.start();
