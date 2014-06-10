@@ -1,0 +1,24 @@
+{
+  "name": "GoldenGate",
+  "version": "0.0.0",
+  "homepage": "https://github.com/wookoouk/GoldenGate",
+  "authors": [
+    "Martin Page <martin.page@tsl.ac.uk>"
+  ],
+  "description": "A UI for the Golden Gate tool",
+  "main": "app/app.pl",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-latest": "~1.2.17",
+    "angular-ui-bootstrap": "~0.11.0",
+    "bootstrap": "~3.1.1"
+  }
+}
