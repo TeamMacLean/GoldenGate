@@ -1,59 +1,42 @@
 package Part;
-#use strict;
-#use warnings;
+use strict;
+use warnings;
 use Bio::SeqIO;
 
 my $featureName = 'Golden_Gate_Par';
 
-sub new
-{
+sub new {
 
-my $class = shift;
-#    my $name = shift;
-my $path = shift;
+    my $class = shift;
+    my $path = shift;
 
+    my $seqio_object = Bio::SeqIO->new(-file => "$path" );
+    my $seq_object = $seqio_object->next_seq;
 
-my $seqio_object = Bio::SeqIO->new(-file => "$path" );
-my $seq_object = $seqio_object->next_seq;
+    my $ggFeature = undef;
 
-
-for my $feat_object ($seq_object->get_SeqFeatures) {
-    if($feat_object->primary_tag eq $featureName){
-        print "FUCK YEA!\n";
+    for my $feat_object ($seq_object->get_SeqFeatures) {
+        if($feat_object->primary_tag eq $featureName){
+        print "found gg feature, breaking\n";
+        $ggFeature = $feat_object;
+        last;
+        }
     }
-}
 
-my $start = 'TODO';
-my $end = 'TODO';
-my $label = 'TODO';
-my $self = {
-#        _name => $name,
-    _seqio  => $seqio_object,
-    _seq  => $seq_object,
-    _start => $start,
-    _end => $end,
-    _label => $label
-};
+    my $start = $ggFeature->location->start;
+    my $end = $ggFeature->location->end;
+    my $label = 'TODO';
+    my $self = {
+        _seqio  => $seqio_object,
+        _seq  => $seq_object,
+        _start => $start,
+        _end => $end,
+        _label => $label
+    };
 
-#    print "$self->{_name}\n";
-#    print "$self->{_seqio}\n";
-#    print "$self->{_seq}\n";
+    bless $self, $class;
 
-#print;
-#for my $feat_object ($self->{_seq}->get_SeqFeatures) {
-#   print "primary tag: ", $feat_object->primary_tag, "\n";
-#   for my $tag ($feat_object->get_all_tags) {
-#      print "  tag: ", $tag, "\n";
-#      for my $value ($feat_object->get_tag_values($tag)) {
-#         print "    value: ", $value, "\n";
-#      }
-#   }
-#}
-#print;
-
-bless $self, $class;
-
-return $self;
+    return $self;
 }
 
 1;

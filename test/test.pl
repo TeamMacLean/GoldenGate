@@ -9,11 +9,14 @@ use Part;
 
 subtest 'create seqio and seq from path of GB file path' => sub {
 
-my $testLoc = dirname(abs_path($0)).'/part.gb';
+my $testLoc = dirname(abs_path($0)).'/testPart.gb';
 my $part = new Part("$testLoc");
 
-is(1,1); #DONT JUDGE ME!
+my $start = $part->{_start};
+my $end = $part->{_end};
 
+is($start,848);
+is($end,969);
 };
 
 done_testing;
