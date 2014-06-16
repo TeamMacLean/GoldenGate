@@ -6,3 +6,5 @@ Mojolicious::Lite
 File::ChangeNotify
 Bower
 ClientComponents
+Mango
+JSON

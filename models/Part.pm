@@ -2,6 +2,7 @@ package Part;
 use strict;
 use warnings;
 use Bio::SeqIO;
+use JSON;
 
 my $featureName = 'Golden_Gate_Par';
 
@@ -17,26 +18,50 @@ sub new {
 
     for my $feat_object ($seq_object->get_SeqFeatures) {
         if($feat_object->primary_tag eq $featureName){
-        print "found gg feature, breaking\n";
+#        print "found gg feature, breaking\n";
         $ggFeature = $feat_object;
         last;
         }
     }
 
-    my $start = $ggFeature->location->start;
-    my $end = $ggFeature->location->end;
-    my $label = 'TODO';
-    my $self = {
-        _seqio  => $seqio_object,
-        _seq  => $seq_object,
-        _start => $start,
-        _end => $end,
-        _label => $label
-    };
+    my $label = 'unkown';
 
-    bless $self, $class;
+    if (defined($ggFeature)){
+        my $start = $ggFeature->location->start;
+        my $end = $ggFeature->location->end;
 
-    return $self;
+
+        if ($ggFeature->has_tag("label")){
+
+        for my $value ($ggFeature->get_tag_values('label')) {
+            $label = $value
+        }
+    }
+
+        my $seq = $ggFeature->spliced_seq->seq;
+        my $ohr = substr $seq, -4;
+        my $ohl = substr $seq, 0, 4;
+
+#        print $label."\n";
+#        print $ohl."\n";
+#        print $ohr."\n";
+#        print $seq."\n";
+
+        my $self = {
+            _label => $label,
+            _seq  => $seq,
+            _overhang_l => $ohl,
+            _overhang_r => $ohr
+        };
+
+        bless $self, $class;
+
+        return $self;
+    } else {
+        print "could not find gg part in $path, skipping.\n";
+        return undef;
+    }
 }
+
 
 1;

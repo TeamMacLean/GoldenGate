@@ -1,0 +1,164 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+
+* {
+    margin: 0;
+    padding: 0px;
+}
+
+body {
+    background: #ffffff;
+    /*background: #00b3fe;*/
+    margin: 0;
+    height: 100%;
+    color: #384452;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+}
+
+p {
+    padding: 0;
+    margin-bottom: 12px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #384452;
+    margin-top: 10px;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+::-moz-selection  {
+    color: #fff;
+    text-shadow:none;
+    background:#2B2E31;
+}
+::selection {
+    color: #fff;
+    text-shadow:none;
+    background:#2B2E31;
+}
+
+.centered {
+    text-align: center
+}
+
+.navbar {
+    min-height: 70px;
+    padding-top: 10px;
+    margin-bottom: 0px;
+    /*margin-top: 2px;*/
+}
+
+.navbar-brand {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.navbar-header .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: white;
+    background-color: transparent;
+}
+
+.navbar-default {
+    background-color: #384452;
+    border-color: transparent;
+}
+
+#headerwrap {
+    background-color: #00b3fe;
+    /*min-height: 550px;*/
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    margin-top: 70px;
+}
+
+#resultwrap {
+    display: none;
+    background-color: #ecf0f1;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+#headerwrap h3, h5 {
+    color: white;
+    font-weight: 400;
+}
+
+#headerwrap h1 {
+    color: white;
+    margin-bottom: 25px;
+}
+
+#headerwrap .img-responsive {
+    margin: 0 auto;
+}
+
+.margin-top-sm {
+    margin-top: 20px;
+}
+
+.margin-top-md {
+    margin-top: 80px;
+}
+
+.margin-btm-sm {
+    margin-bottom: 20px
+}
+
+
+
+/*replace nprogress colour*/
+#nprogress .bar {
+    background: #29d;
+    /*background: #e74c3c;*/
+    /*background: #ecf0f1;*/
+    z-index: 1031;
+    /*top:70px;*/
+    /*width: 0;*/
+}
+#nprogress .peg {
+    box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+    /*box-shadow: 0 0 10px #e74c3c, 0 0 5px #e74c3c;*/
+    /*box-shadow: 0 0 10px #ecf0f1, 0 0 5px #ecf0f1;*/
+}
+#nprogress .spinner-icon {
+    border-top-color: #29d;
+    border-left-color: #29d;
+    /*border-top-color: #e74c3c;*/
+    /*border-left-color: #e74c3c;*/
+    /*border-top-color: #ecf0f1;*/
+    /*border-left-color: #ecf0f1;*/
+}
+
+.form-control {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

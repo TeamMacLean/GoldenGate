@@ -8,6 +8,8 @@
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/components/nprogress/nprogress.css" rel="stylesheet">
+    <link href="/components/steamroller/steamroller.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -17,50 +19,58 @@
 </head>
 <body ng-app>
 
-<div class="container">
-    <h1>Golden Gate</h1>
-
-    <div class="row">
-        <div class="col-sm-3"> <!-- 3 -->
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="col-sm-3"> <!-- 6 -->
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="col-sm-3"> <!-- 9 -->
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="col-sm-3"> <!-- 12 -->
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">GOLDEN GATE.</a>
         </div>
     </div>
-
-
 </div>
+
+<!--<div id="nprogress">-->
+    <!--<div class="bar" role="bar"></div>-->
+<!--</div>-->
+
+<div id="headerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3"> <!-- 3 -->
+                <h3>PRO</h3>
+                <select class="form-control" id="PRO">
+                </select>
+            </div>
+            <div class="col-sm-3"> <!-- 6 -->
+                <h3>5U</h3>
+                <select class="form-control" id="5U">
+                </select>
+            </div>
+            <div class="col-sm-3"> <!-- 9 -->
+                <h3>NT2</h3>
+                <select class="form-control" id="NT2">
+                </select>
+            </div>
+            <div class="col-sm-3"> <!-- 12 -->
+                <h3>CDS</h3>
+                <select class="form-control" id="CDS">
+                </select>
+            </div>
+        </div>
+        <div class="row margin-top-md margin-btm-sm">
+            <a href="#" class="btn btn-lg btn-default" id="buildit">BUILD IT</a>
+        </div>
+
+    </div>
+</div>
+<!-- /headerwrap -->
+
+
+<div id="resultwrap">
+    <div class="container">
+        <h2 id="resultstring"></h2>
+    </div>
+</div>
+<!-- /resultwrap -->
+
 
 <script src="/components/jquery/dist/jquery.min.js"></script>
 <script src="/components/angular/angular.min.js"></script>
