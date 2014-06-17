@@ -34,24 +34,41 @@
 <div id="headerwrap">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3"> <!-- 3 -->
+            <div class="col-sm-2"> <!-- 2 -->
+                <h3>VECTOR</h3>
+                <select class="form-control seq-selector" id="VEC" >
+                    <option value="">---</option>
+                </select>
+                <h4>comming soon...</h4>
+            </div>
+            <div class="col-sm-2"> <!-- 4 -->
                 <h3>PRO</h3>
-                <select class="form-control" id="PRO">
+                <select class="form-control seq-selector" id="PRO">
+                    <option value="">---</option>
                 </select>
             </div>
-            <div class="col-sm-3"> <!-- 6 -->
+            <div class="col-sm-2"> <!-- 6 -->
                 <h3>5U</h3>
-                <select class="form-control" id="5U">
+                <select class="form-control seq-selector" id="5U">
+                    <option value="">---</option>
                 </select>
             </div>
-            <div class="col-sm-3"> <!-- 9 -->
+            <div class="col-sm-2"> <!-- 8 -->
                 <h3>NT2</h3>
-                <select class="form-control" id="NT2">
+                <select class="form-control seq-selector" id="NT2">
+                    <option value="">---</option>
                 </select>
             </div>
-            <div class="col-sm-3"> <!-- 12 -->
+            <div class="col-sm-2"> <!-- 10 -->
                 <h3>CDS</h3>
-                <select class="form-control" id="CDS">
+                <select class="form-control seq-selector" id="CDS">
+                    <option value="none">---</option>
+                </select>
+            </div>
+            <div class="col-sm-2"> <!-- 12 -->
+                <h3>TERMINATOR</h3>
+                <select class="form-control seq-selector" id="TER">
+                    <option value="none">---</option>
                 </select>
             </div>
         </div>
