@@ -4,9 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A visual tool for creating .">
+    <meta name="keywords" content="synbio, golden gate, synthetic, biology, tsl, assembly">
+    <meta name="author" content="Martin Page, TSL Bioinformatics, TSL SynBio">
+
+    <link rel="shortcut icon" href="/favicon.ico?v=2">
+
     <title>Golden Gate</title>
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/components/octicons/octicons/octicons.css" rel="stylesheet">
     <link href="/components/nprogress/nprogress.css" rel="stylesheet">
     <link href="/components/steamroller/steamroller.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
@@ -18,75 +25,134 @@
 
 </head>
 <body ng-app>
+<div id="bodywrap">
+    <div id="main">
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">GOLDEN GATE.</a>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img" src="/gate2.png"></a>
+                </div>
+                <span data-toggle="modal" data-target="#loadModal" class="mega-octicon octicon-cloud-download pull-right fake-button"></span>
+            </div>
         </div>
+
+        <div id="headerwrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"> <!-- 2 -->
+                        <h3>VECTOR</h3>
+                        <select class="form-control seq-selector" id="VEC">
+                            <option value="">---</option>
+                        </select>
+                        <h4>comming soon...</h4>
+                    </div>
+                    <div class="col-sm-2"> <!-- 4 -->
+                        <h3>PRO</h3>
+                        <select class="form-control seq-selector" id="PRO">
+                            <option value="">---</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2"> <!-- 6 -->
+                        <h3>5U</h3>
+                        <select class="form-control seq-selector" id="5U">
+                            <option value="">---</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2"> <!-- 8 -->
+                        <h3>NT2</h3>
+                        <select class="form-control seq-selector" id="NT2">
+                            <option value="">---</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2"> <!-- 10 -->
+                        <h3>CDS</h3>
+                        <select class="form-control seq-selector" id="CDS">
+                            <option value="none">---</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2"> <!-- 12 -->
+                        <h3>TERMINATOR</h3>
+                        <select class="form-control seq-selector" id="TER">
+                            <option value="none">---</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row margin-top-md margin-btm-sm">
+                    <button class="btn btn-lg btn-default" id="buildit">BUILD IT</button>
+                </div>
+
+            </div>
+        </div>
+        <!-- /headerwrap -->
+
+
+        <div id="resultwrap">
+            <div class="container">
+                <h2 id="resultstring"></h2>
+                <div class="row margin-top-md margin-btm-sm">
+                    <button data-toggle="modal" data-target="#saveModal" class="btn btn-lg btn-default" id="saveit">SAVE IT <span class="mega-octicon octicon-cloud-upload"></span></button>
+                </div>
+            </div>
+        </div>
+        <!-- /resultwrap -->
+
+    </div>
+    <!-- main -->
+</div>
+<!-- body wrap -->
+
+<div id="footerwrap">
+    <div class="container">
+        <p>
+            Made by <a href="http://twitter.com/biodevops"> Martin Page</a>. Check out the code on <a
+                href="https://github.com/wookoouk/goldengate"><span
+                class="mega-octicon octicon-logo-github"></span></a>
+
+        </p>
     </div>
 </div>
 
-<!--<div id="nprogress">-->
-    <!--<div class="bar" role="bar"></div>-->
-<!--</div>-->
-
-<div id="headerwrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2"> <!-- 2 -->
-                <h3>VECTOR</h3>
-                <select class="form-control seq-selector" id="VEC" >
-                    <option value="">---</option>
-                </select>
-                <h4>comming soon...</h4>
-            </div>
-            <div class="col-sm-2"> <!-- 4 -->
-                <h3>PRO</h3>
-                <select class="form-control seq-selector" id="PRO">
-                    <option value="">---</option>
-                </select>
-            </div>
-            <div class="col-sm-2"> <!-- 6 -->
-                <h3>5U</h3>
-                <select class="form-control seq-selector" id="5U">
-                    <option value="">---</option>
-                </select>
-            </div>
-            <div class="col-sm-2"> <!-- 8 -->
-                <h3>NT2</h3>
-                <select class="form-control seq-selector" id="NT2">
-                    <option value="">---</option>
-                </select>
-            </div>
-            <div class="col-sm-2"> <!-- 10 -->
-                <h3>CDS</h3>
-                <select class="form-control seq-selector" id="CDS">
-                    <option value="none">---</option>
-                </select>
-            </div>
-            <div class="col-sm-2"> <!-- 12 -->
-                <h3>TERMINATOR</h3>
-                <select class="form-control seq-selector" id="TER">
-                    <option value="none">---</option>
-                </select>
-            </div>
-        </div>
-        <div class="row margin-top-md margin-btm-sm">
-            <a href="#" class="btn btn-lg btn-default" id="buildit">BUILD IT</a>
-        </div>
-
-    </div>
-</div>
-<!-- /headerwrap -->
 
 
-<div id="resultwrap">
-    <div class="container">
-        <h2 id="resultstring"></h2>
-    </div>
-</div>
-<!-- /resultwrap -->
+<div class="modal fade" id="saveModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">SAVE YOUR BRIDGE</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="bridgename">Bridge Name</label>
+                        <input type="text" class="form-control" id="bridgename" placeholder="Name your bridge">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-default center-block">Save</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="loadModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">LOAD A BRIDGE</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>item 1</li>
+                    <li>item 2</li>
+                    <li>item 3</li>
+                </ul>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 <script src="/components/jquery/dist/jquery.min.js"></script>

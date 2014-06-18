@@ -1,6 +1,7 @@
 console.log('started loading');
 
 $(document).ready(function () {
+
     var features;
 
     NProgress.configure({ showSpinner: false });
@@ -58,26 +59,19 @@ $(document).ready(function () {
         var uuFeature = getFeatureById(uu.val());
         var ntFeature = getFeatureById(nt.val());
         var cdsFeature = getFeatureById(cds.val());
-
-        var out;
+        var terFeature = getFeatureById(ter.val());
 
         if (finalCompatCheck()) {
-
-            if (proFeature && uuFeature && ntFeature && cdsFeature) {
-                out = proFeature.seq + '' + uuFeature.seq + '' + ntFeature.seq + '' + cdsFeature.seq;
+            if (proFeature && uuFeature && ntFeature && cdsFeature && terFeature) {
+                $('#resultstring').text(proFeature.seq + '' + uuFeature.seq + '' + ntFeature.seq + '' + cdsFeature.seq + '' + terFeature.seq);
             } else {
-                out = 'Have you filled out all available options?';
+                $('#resultstring').text('Not all of your parts are compatible, please check them');
             }
         } else {
-            out = 'Not all of your parts are compatible, please check them';
+            $('#resultstring').text('Not all of your parts are compatible, please check them');
         }
 
-        if (out) {
-            $('#resultstring').text(out);
-            $('#resultwrap').show();
-        } else {
-            alert('error, could not combine parts');
-        }
+        $('#resultwrap').show();
         NProgress.done(true);
     });
 

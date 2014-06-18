@@ -6,14 +6,27 @@
     padding: 0px;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
-    background: #ffffff;
+    background: #00b3fe;
     /*background: #00b3fe;*/
     margin: 0;
     height: 100%;
     color: #384452;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
+}
+
+#bodywrap {
+    min-height: 100%;
+}
+
+#main {
+    overflow: auto;
+    padding-bottom: 150px; /* this needs to be bigger than footer height*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,15 +54,16 @@ a {
     text-decoration: none;
 }
 
-::-moz-selection  {
+::-moz-selection {
     color: #fff;
-    text-shadow:none;
-    background:#2B2E31;
+    text-shadow: none;
+    background: #2B2E31;
 }
+
 ::selection {
     color: #fff;
-    text-shadow:none;
-    background:#2B2E31;
+    text-shadow: none;
+    background: #2B2E31;
 }
 
 .centered {
@@ -91,7 +105,6 @@ a {
 
 #headerwrap {
     background-color: #00b3fe;
-    /*min-height: 550px;*/
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
@@ -100,11 +113,39 @@ a {
 
 #resultwrap {
     display: none;
-    background-color: #ecf0f1;
+    background-color: white;
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
     word-wrap: break-word;
+}
+
+#resultwrap h1, #resultwrap .h1, #resultwrap h2, #resultwrap .h2, #resultwrap h3, #resultwrap .h3 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#footerwrap {
+
+    position: relative;
+    margin-top: -150px; /* negative value of footer height */
+    height: 150px;
+    clear: both;
+
+    color: white;
+    background-color: #34495e;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+#footerwrap a {
+    color: #00b3fe;
+    text-decoration: none;
+}
+
+#footerwrap p {
+    color: white;
 }
 
 #headerwrap h3, h5 {
@@ -144,27 +185,82 @@ a {
 /*replace nprogress colour*/
 #nprogress .bar {
     background: #29d;
-    /*background: #e74c3c;*/
-    /*background: #ecf0f1;*/
     z-index: 1031;
-    /*top:70px;*/
-    /*width: 0;*/
 }
+
 #nprogress .peg {
     box-shadow: 0 0 10px #29d, 0 0 5px #29d;
-    /*box-shadow: 0 0 10px #e74c3c, 0 0 5px #e74c3c;*/
-    /*box-shadow: 0 0 10px #ecf0f1, 0 0 5px #ecf0f1;*/
 }
+
 #nprogress .spinner-icon {
     border-top-color: #29d;
     border-left-color: #29d;
-    /*border-top-color: #e74c3c;*/
-    /*border-left-color: #e74c3c;*/
-    /*border-top-color: #ecf0f1;*/
-    /*border-left-color: #ecf0f1;*/
 }
 
 .form-control {
     margin-top: 8px;
     margin-bottom: 8px;
+}
+
+#buildit {
+    background: white;
+    color: #34495e;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+#saveit {
+    background: #00b3fe;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse {
+    float: left;
+}
+
+.navbar .mega-octicon {
+    color: white;
+    padding: 15px;
+    line-height: 20px;
+    height: 50px;
+}
+
+/*.navbar .mega-octicon:hover {*/
+    /*color: #00b3fe;*/
+/*}*/
+
+.modal-header h4, .modal-header .h4 {
+    color: #34495e;
+    text-align: center;
+}
+
+#saveModal .btn {
+    background: #00b3fe;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+#saveModal .form-control{
+    border: 1px solid #00b3fe;
+}
+
+.modal-title{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.fake-button:hover {
+    cursor: pointer;
+}
+
+.navbar-img {
+    height: 25px;
+    width: auto;
 }

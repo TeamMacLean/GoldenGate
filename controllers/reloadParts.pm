@@ -32,10 +32,11 @@ my $dir = $partsFolder;
             print "updating in db.\n";
         } else {
 #           add new
+            if($part->{_label} && $part->{_seq} && $part->{_overhang_l} && $part->{_overhang_r}){
             print "adding to db.\n";
-
-            my $oid = $mango->db('goldengate')->collection('parts')->insert({'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}});
-            print $oid."\n";
+                my $oid = $mango->db('goldengate')->collection('parts')->insert({'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}});
+                print $oid."\n";
+            }
         }
 #	print "$file\n";
     }
