@@ -7,7 +7,7 @@ function partController($scope, $http) {
     var blankOption = {label: "NONE", fake: true};
 
 //    get part types from picker
-    $scope.partTypes = ['pro', 'cds', 'ct', '3u+ter'];
+    $scope.partTypes = ['pro', '5u', 'cds', '3u+ter'];
 
 //    data sty;e
 //    [{type,[parts]},{type,[parts]},{type,[parts]}]
@@ -17,6 +17,7 @@ function partController($scope, $http) {
         $scope.parts = parts;
 //        for eact part type
         $scope.partTypes.forEach(function (pt, int) {
+//            describe the object
             $scope.partsGroups[int] = {};
             $scope.partsGroups[int].type = pt;
             $scope.partsGroups[int].parts = [];
@@ -75,20 +76,19 @@ function partController($scope, $http) {
 
         var currentPart = selector.opt;
 
-
+//        if the selector is blank/reset then it will not have any data bound to it
         if (currentPart) {
-
-
+//            is not far left
             if (!selector.first) {
                 processLeft();
             }
+//            is not far right
             if (!selector.last) {
                 processRight();
             }
         } else {
 
-            console.log(selector);
-//            enable sides
+//            enable sides of selection that was reset/emptied
             if (selector.$$prevSibling) {
                 selector.$$prevSibling.part.parts.forEach(function (part) {
                     enableOption(selector.$$prevSibling, part);
@@ -101,13 +101,12 @@ function partController($scope, $http) {
                 });
             }
         }
+
+        //        process the select to the left of the modified select
         function processLeft() {
             if (selector.$$prevSibling) {
                 selector.$$prevSibling.part.parts.forEach(function (part) {
-
-
                     enableOption(selector.$$prevSibling, part);
-
                     if (currentPart.overhang_l == part.overhang_r) {
                         enableOption(selector.$$prevSibling, part);
                     } else {
@@ -117,10 +116,10 @@ function partController($scope, $http) {
             }
         }
 
+//        process the select to the right of the modified select
         function processRight() {
             if (selector.$$nextSibling) {
                 selector.$$nextSibling.part.parts.forEach(function (part) {
-
                     if (currentPart.overhang_r == part.overhang_l) {
                         enableOption(selector.$$nextSibling, part);
                     } else {
@@ -147,34 +146,14 @@ function partController($scope, $http) {
         }
     };
 
-
     $scope.build = function () {
         console.log('building');
     }
 
 }
 
+//handle saved bridges TODO
 function gateController($scope, $http) {
 
 }
 
-
-function getFeatureById(id) {
-    var returnable;
-    if (features) {
-        features.forEach(function (feature) {
-            if (feature._id == id) {
-                returnable = feature;
-            }
-        });
-        return returnable;
-    } else {
-        console.log('features not loaded');
-        alert('error, features not loaded');
-    }
-}
-
-
-//    function StringStartsWith(needle, haystack) {
-//        return (haystack.toUpperCase().substr(0, needle.length) == needle.toUpperCase());
-//    }

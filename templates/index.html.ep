@@ -52,6 +52,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <h3 class="partType">Vector (this looks ugly, FIX ME!)</h3>
+                    <select id="vec" class="form-control seq-selector">
+                        <option value="" selected>---</option>
+                    </select>
+
+                </div>
                 <div class="row margin-top-md margin-btm-sm">
                     <button class="btn btn-lg btn-default" id="buildit" ng-click="build()">BUILD IT</button>
                 </div>

@@ -10,22 +10,6 @@ my $mango = Mango->new('mongodb://localhost:27017');
 
 get '/' =>  sub {
     my $self = shift;
-
-#    my $gateCursor = $mango->db('goldengate')->collection('gates')->find;
-#    my $savedGates = $gateCursor->all;
-
-
-#   % foreach my $gate($gates) {
-#   <li><h4><%= $gate->{name} %></h4></li>
-#   %}
-
-#foreach my $gate($savedGates){
-#p $gate;
-#}
-
-#    p($savedGates);
-
-#    $self->stash(gates => $savedGates);
     $self->render("index");
 };
 
@@ -36,7 +20,6 @@ my $self = shift;
 
 get '/parts' => sub {
     my $self = shift;
-
             my $cursor = $mango->db('goldengate')->collection('parts')->find;
             my $docs = $cursor->all;
             $self->render(json => $docs);
@@ -45,7 +28,6 @@ get '/parts' => sub {
 post '/savegate' => sub {
     print 'saving new gate';
     my $self = shift;
-
     my $gateName = 'test';
     my $vec = '';
     my $pro = '';
@@ -53,23 +35,9 @@ post '/savegate' => sub {
     my $nt2 = '';
     my $cds = '';
     my $ter = '';
-
     my $oid = $mango->db('goldengate')->collection('gates')->insert({'name'=>$gateName, 'vec'=>$vec, 'pro'=>$pro, '5u'=>$fiveu,'nt2'=>$nt2, 'cds'=>$cds, 'ter'=>$ter});
-
     print "new gate $oid\n";
 };
-
-
-
-#my $clients = {};
-#websocket '/echo' => sub {
-#        my $self = shift;
-#
-#        my $cursor = $mango->db('goldengate')->collection('parts')->find;
-#        my $docs = $cursor->all;
-#        $self->send({json => $docs});
-#    };
-
 
 
 app->start;
