@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Bio::SeqIO;
 use JSON;
+use Data::Printer;
 
 my $featureName = 'Golden_Gate_Par';
 
@@ -41,6 +42,11 @@ sub new {
         my $seq = $ggFeature->spliced_seq->seq;
         my $ohr = substr $seq, -4;
         my $ohl = substr $seq, 0, 4;
+
+
+#        my @type = split /-/ ,$label;
+#        p @type[0];
+
 
 #        print $label."\n";
 #        print $ohl."\n";

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GoldenGate</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<section id="mainsec">
+<div class="container">
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="green">
+                <p>PRO+5U</p>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="blue">
+                <p>CDS</p>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="green">
+                <p>PRO+5U</p>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="green">
+                <p>PRO+5U</p>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="green">
+                <p>PRO+5U</p>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="green">
+                        <p>PRO+5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="blue">
+                <p>CDS</p>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="green">
+                        <p>PRO+5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="green">
+                        <p>PRO+5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="green">
+                        <p>PRO+5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="blue">
+                <p>CDS</p>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>5U</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="greentoblue">
+                        <p>5U + NT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="blue">
+                <p>CDS</p>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="greentoblue">
+                        <p>5U + NT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="greentoblue">
+                        <p>5U + NT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>CT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+<!--row START-->
+<a href="/picker">
+    <div class="row gate">
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="green">
+                        <p>PRO</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="greentoblue">
+                        <p>5U + NT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="blue">
+                        <p>NT2/SP</p>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="blue">
+                        <p>CDS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="red">
+                <p>Ter</p>
+            </div>
+        </div>
+    </div>
+</a>
+<!--row END-->
+</div>
+</section>
+
+<script src="/components/jquery/dist/jquery.min.js"></script>
+<script src="/components/angular/angular.min.js"></script>
+<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

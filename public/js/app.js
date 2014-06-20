@@ -1,193 +1,180 @@
-console.log('started loading');
+function partController($scope, $http) {
 
-$(document).ready(function () {
+//    make the scope aware of part groups
+    $scope.partsGroups = {};
 
-    var features;
+//    to allow a blank option in selects
+    var blankOption = {label: "NONE", fake: true};
 
-    NProgress.configure({ showSpinner: false });
-    NProgress.start();
+//    get part types from picker
+    $scope.partTypes = ['pro', 'cds', 'ct', '3u+ter'];
 
-    var vec = $('#VEC');
-    var pro = $('#PRO');
-    var uu = $('#5U');
-    var nt = $('#NT2');
-    var cds = $('#CDS');
-    var ter = $('#TER');
+//    data sty;e
+//    [{type,[parts]},{type,[parts]},{type,[parts]}]
 
-    var inputs = [pro, uu, nt, cds, ter]; //TODO get rid of the currently used input/select
-
-    var ws = new WebSocket('ws://localhost:3000/echo');
-    ws.onopen = function () {
-        console.log('Connection opened');
-    };
-
-    ws.onmessage = function (msg) {
-
-        var res = JSON.parse(msg.data);
-
-        features = res;
-
-        res.forEach(function (fist) {
-
-
-//            if (fist.label.toUpperCase().indexOf("VEC") > -1) {
-//                vec.append(new Option(fist.label, fist._id));
-//            }
-            if (fist.label.toUpperCase().indexOf("PRO") > -1) {
-                pro.append(new Option(fist.label, fist._id));
-            }
-            if (fist.label.toUpperCase().indexOf("5U") > -1) {
-                uu.append(new Option(fist.label, fist._id));
-            }
-            if (fist.label.toUpperCase().indexOf("NT2") > -1) {
-                nt.append(new Option(fist.label, fist._id));
-            }
-            if (fist.label.toUpperCase().indexOf("CDS") > -1) {
-                cds.append(new Option(fist.label, fist._id));
-            }
-            if (fist.label.toUpperCase().indexOf("TER") > -1) {
-                ter.append(new Option(fist.label, fist._id));
-            }
-        });
-        NProgress.done(true);
-
-    };
-
-    $('#buildit').click(function () {
-        NProgress.start();
-        var proFeature = getFeatureById(pro.val());
-        var uuFeature = getFeatureById(uu.val());
-        var ntFeature = getFeatureById(nt.val());
-        var cdsFeature = getFeatureById(cds.val());
-        var terFeature = getFeatureById(ter.val());
-
-        if (finalCompatCheck()) {
-            if (proFeature && uuFeature && ntFeature && cdsFeature && terFeature) {
-                $('#resultstring').text(proFeature.seq + '' + uuFeature.seq + '' + ntFeature.seq + '' + cdsFeature.seq + '' + terFeature.seq);
-            } else {
-                $('#resultstring').text('Not all of your parts are compatible, please check them');
-            }
-        } else {
-            $('#resultstring').text('Not all of your parts are compatible, please check them');
-        }
-
-        $('#resultwrap').show();
-        NProgress.done(true);
-    });
-
-    function checkCompat(selector) {
-
-        selector.css("border", "none");
-
-        inputs.forEach(function (input) {
-            input.prop('disabled', true);
-        });
-
-        NProgress.start();
-        console.log('Checking compat', selector[0].id);
-
-
-        // get changed select option
-        var thisFeatureID = selector.val();
-        var thisFeature = getFeatureById(thisFeatureID);
-        if (thisFeature) {
-
-
-            if (features) {
-                inputs.forEach(
-                    function (selection, index) {
-
-                        if (selection[0].id == selector[0].id) {
-
-
-                            // TO THE LEFT
-                            if (index - 1 > -1) {
-                                var leftInput = inputs[index - 1];
-                                var leftChildren = leftInput.children();
-                                leftChildren.each(function (leftInxex, leftChild) {
-                                    leftChild = $(leftChild);
-                                    var leftFeature = getFeatureById(leftChild.val());
-                                    if (leftFeature) {
-                                        if (leftFeature.overhang_r == thisFeature.overhang_l) {
-                                            leftChild.prop('disabled', false);
-                                        } else {
-                                            leftChild.prop('disabled', true);
-                                        }
-                                    }
-                                });
-                            }
-
-                            // TO THE RIGHT
-                            if (index + 1 < inputs.length) {
-                                var rightInput = inputs[index + 1];
-                                var rightChildren = rightInput.children();
-                                rightChildren.each(function (rightInxex, rightChild) {
-                                    rightChild = $(rightChild);
-                                    var rightFeature = getFeatureById(rightChild.val());
-                                    if (rightFeature) {
-                                        if (rightFeature.overhang_l == thisFeature.overhang_r) {
-                                            rightChild.prop('disabled', false);
-                                        } else {
-                                            rightChild.prop('disabled', true);
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-            }
-        }
-
-        inputs.forEach(function (input) {
-            input.prop('disabled', false);
-        });
-        NProgress.done(true);
-    }
-
-    function getFeatureById(id) {
-        var returnable;
-        if (features) {
-            features.forEach(function (feature) {
-                if (feature._id == id) {
-                    returnable = feature;
+//    get all available parts
+    $http.get('/parts').success(function (parts) {
+        $scope.parts = parts;
+//        for eact part type
+        $scope.partTypes.forEach(function (pt, int) {
+            $scope.partsGroups[int] = {};
+            $scope.partsGroups[int].type = pt;
+            $scope.partsGroups[int].parts = [];
+//            $scope.partsGroups[int].parts.push(blankOption);
+//            for each part
+            $scope.parts.forEach(function (part) {
+//                get type from label
+                var type = part.label.split("-")[0];
+//                if the part type is same as the type
+                if (pt.toUpperCase() == type.toUpperCase()) {
+//                    push matching part into sub array
+                    $scope.partsGroups[int].parts.push(part);
                 }
             });
-            return returnable;
-        } else {
-            console.log('features not loaded');
-            alert('error, features not loaded');
-        }
-    }
-
-
-    inputs.forEach(
-        function (selection) {
-            console.log('Added checkCompat on change to', selection.selector);
-            selection.change(function () {
-                checkCompat(selection);
-            });
         });
+    });
+
+//    return the append for the col styles based on the amount of items in partTypes the list
+    $scope.getColSize = function () {
 
 
-    function finalCompatCheck() {
-        var safe;
+        switch ($scope.partTypes.length) {
+            case 0:
+                break;
+            case 1:
+                return 12;
+                break;
+            case 2:
+                return '6';
+                break;
+            case 3:
+                return '4';
+                break;
+            case 4:
+                return '3';
+                break;
+            case 5:
+//                custom css rule
+                return 'fifth';
+                break;
+            case 6:
+                return '2';
+                break;
+            case 7:
+//                custom css rule
+                return 'seventh';
+                break;
+            default:
+                return 1;
+                break;
+        }
+    };
 
-        inputs.forEach(function (input) {
+//    compare the selects to the left and right, disable incompatible parts
+    $scope.checkCompat = function (selector) {
 
-            var feature = getFeatureById(input.val());
+        var currentPart = selector.opt;
 
-            if (feature) {
-                input.css("border", "none");
-                safe = true;
-            } else {
-                input.css("border-style", "solid");
-                input.css("border-color", "#e74c3c");
+
+        if (currentPart) {
+
+
+            if (!selector.first) {
+                processLeft();
+            }
+            if (!selector.last) {
+                processRight();
+            }
+        } else {
+
+            console.log(selector);
+//            enable sides
+            if (selector.$$prevSibling) {
+                selector.$$prevSibling.part.parts.forEach(function (part) {
+                    enableOption(selector.$$prevSibling, part);
+                });
             }
 
+            if (selector.$$nextSibling) {
+                selector.$$nextSibling.part.parts.forEach(function (part) {
+                    enableOption(selector.$$nextSibling, part);
+                });
+            }
+        }
+        function processLeft() {
+            if (selector.$$prevSibling) {
+                selector.$$prevSibling.part.parts.forEach(function (part) {
 
-        });
-        return safe;
+
+                    enableOption(selector.$$prevSibling, part);
+
+                    if (currentPart.overhang_l == part.overhang_r) {
+                        enableOption(selector.$$prevSibling, part);
+                    } else {
+                        disableOption(selector.$$prevSibling, part);
+                    }
+                });
+            }
+        }
+
+        function processRight() {
+            if (selector.$$nextSibling) {
+                selector.$$nextSibling.part.parts.forEach(function (part) {
+
+                    if (currentPart.overhang_r == part.overhang_l) {
+                        enableOption(selector.$$nextSibling, part);
+                    } else {
+                        disableOption(selector.$$nextSibling, part);
+                    }
+                });
+            }
+        }
+
+        function enableOption(group, part) {
+            $("#" + group.part.type).find("option").filter(function () {
+                return part.label === $(this).text();
+            }).attr("disabled", false);
+        }
+
+        function disableOption(group, part) {
+            $("#" + group.part.type).find("option").filter(function () {
+                return part.label === $(this).text();
+            }).attr("disabled", true);
+
+            if (group.opt && part.label == group.opt.label) {
+                group.opt = null;
+            }
+        }
+    };
+
+
+    $scope.build = function () {
+        console.log('building');
     }
-});
+
+}
+
+function gateController($scope, $http) {
+
+}
 
 
+function getFeatureById(id) {
+    var returnable;
+    if (features) {
+        features.forEach(function (feature) {
+            if (feature._id == id) {
+                returnable = feature;
+            }
+        });
+        return returnable;
+    } else {
+        console.log('features not loaded');
+        alert('error, features not loaded');
+    }
+}
+
+
+//    function StringStartsWith(needle, haystack) {
+//        return (haystack.toUpperCase().substr(0, needle.length) == needle.toUpperCase());
+//    }
