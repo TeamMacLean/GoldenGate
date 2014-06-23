@@ -1,4 +1,6 @@
-function partController($scope, $http) {
+var app = angular.module('goldenGate', ['ui.bootstrap']);
+
+app.controller('partController', ['$scope', '$http', function ($scope, $http) {
 
 //    make the scope aware of part groups
     $scope.partsGroups = {};
@@ -147,10 +149,16 @@ function partController($scope, $http) {
     };
 
     $scope.build = function () {
-        console.log('building');
+        console.log($scope);
+        $('#resultwrap').show();
+
+//        $scope.partsGroups.forEach(function (group) {
+//           console.log(group);
+//        });
+
     }
 
-}
+}]);
 
 //handle saved bridges TODO
 function gateController($scope, $http) {
