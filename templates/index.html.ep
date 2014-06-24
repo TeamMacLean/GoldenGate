@@ -8,7 +8,7 @@
     <meta name="keywords" content="synbio, golden gate, synthetic, biology, tsl, assembly">
     <meta name="author" content="Martin Page, TSL Bioinformatics, TSL SynBio">
 
-    <link rel="shortcut icon" href="/favicon.ico?v=2">
+    <link rel="shortcut icon" href="/favicon.ico?v=3">
 
     <title>Golden Gate</title>
 
@@ -39,6 +39,10 @@
         </div>
         <div id="headerwrap">
             <div class="container">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+            <div class="container">
                 <div class="row">
                     <!--THE MAGIC!-->
                     <div ng-repeat="part in partsGroups">
@@ -49,17 +53,16 @@
                                     ng-model="opt">
                                 <option value="" selected>---</option>
                             </select>
+                            <input type="text" class="form-control" ng-show="false">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <h3 class="partType">Vector (this looks ugly, FIX ME!)</h3>
-                    <select id="vec" class="form-control seq-selector">
+                    <h3 class="partType">Vector</h3>
+                    <select id="vec" class="form-control seq-selector" ng-options="vector as vector.file for vector in vectors" ng-model="vector" >
                         <option value="" selected>---</option>
                     </select>
 
-                </div>
-                <div class="row margin-top-md margin-btm-sm">
+                <div class="row margin-top-md">
                     <button class="btn btn-lg btn-default" id="buildit" ng-click="build()">BUILD IT</button>
                 </div>
             </div>

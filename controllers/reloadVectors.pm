@@ -16,7 +16,7 @@ my $dir = $partsFolder;
     while (my $file = readdir(DIR)) {
         next if ($file =~ m/^\./);
 
-        my $part = new Part($partsFolder.'/'.$file);
+        my $part = new Part($partsFolder, $file);
 
 #        print "have part\n";
 
@@ -24,16 +24,16 @@ my $dir = $partsFolder;
         my $mango = Mango->new('mongodb://localhost:27017');
 
         # Does it exist
-        my $doc = $mango->db('goldengate')->collection('parts')->find_one({label => $part->{_label}});
+        my $doc = $mango->db('goldengate')->collection('vectors')->find_one({label => $part->{_label}});
 
         if(defined($doc)){
 #           update it
             print "updating in db.\n";
         } else {
 #           add new
-            if($part->{_label} && $part->{_seq} && $part->{_overhang_l} && $part->{_overhang_r}){
+            if($part->{_label} && $part->{_file}){
             print "adding to db.\n";
-                my $oid = $mango->db('goldengate')->collection('parts')->insert({'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}});
+                my $oid = $mango->db('goldengate')->collection('vectors')->insert({'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}, 'file' =>$part->{_file}});
                 print $oid."\n";
             }
         }

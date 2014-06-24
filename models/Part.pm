@@ -11,8 +11,9 @@ sub new {
 
     my $class = shift;
     my $path = shift;
+    my $file = shift;
 
-    my $seqio_object = Bio::SeqIO->new(-file => "$path" );
+    my $seqio_object = Bio::SeqIO->new(-file => "$path/$file" );
     my $seq_object = $seqio_object->next_seq;
 
     my $ggFeature = undef;
@@ -25,7 +26,7 @@ sub new {
         }
     }
 
-    my $label = 'unkown';
+    my $label = 'unknown';
 
     if (defined($ggFeature)){
         my $start = $ggFeature->location->start;
@@ -57,7 +58,8 @@ sub new {
             _label => $label,
             _seq  => $seq,
             _overhang_l => $ohl,
-            _overhang_r => $ohr
+            _overhang_r => $ohr,
+            _file => $file
         };
 
         bless $self, $class;

@@ -11,7 +11,7 @@ html, body {
 }
 
 body {
-    background: #00b3fe;
+    background: #007EB3;
     /*background: #00b3fe;*/
     margin: 0;
     height: 100%;
@@ -269,7 +269,41 @@ a {
     text-transform: uppercase;
 }
 
+.alert {
+    border-radius: 0;
+    border: none;
+}
 
+.alert-primary {
+    background-color: #2980b9;
+    color: #FFF;
+}
+
+.alert-success {
+    background-color: #1abc9c;
+    color: #FFF;
+}
+
+.alert-info {
+    background-color: #3498db;
+    color: #FFF;
+}
+
+.alert-warning {
+    background-color: #f1c40f;
+    color: #000;
+}
+
+.alert-danger {
+    background-color: #e74c3c;
+    color: #FFF;
+}
+
+
+
+.close {
+    opacity: 1;
+}
 
 /*HACKS*/
 .col-sm-fifth {
@@ -331,29 +365,6 @@ a {
         float: left;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*for picker*/
 
