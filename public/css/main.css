@@ -406,6 +406,26 @@ a {
     word-wrap: break-word;
 }
 
+.yellow {
+    padding: 4px;
+    margin: 2px;
+    background-color: #f1c40f;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.orange {
+    padding: 4px;
+    margin: 2px;
+    background-color: #e67e22;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    word-wrap: break-word;
+}
+
 .red {
     padding: 4px;
     margin: 2px;
@@ -413,6 +433,21 @@ a {
     color: #fff;
     text-align: center;
     word-wrap: break-word;
+}
+
+.gate {
+    padding: 10px;
+    margin: 10px;
+    background-color: #34495e;
+
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.gate:hover {
+    background-color: #fff;
 }
 
 .purple {

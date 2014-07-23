@@ -1,20 +1,62 @@
 var app = angular.module('goldenGate', ['ui.bootstrap']);
 
-app.controller('partController', ['$scope', '$http', function ($scope, $http) {
+app.config(['$locationProvider', function ($locationProvider) {
+    $locationProvider.html5Mode(true);
+}]);
+
+app.controller('partController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+
+
+//    list of visable alerts
+    $scope.alerts = [
+    ];
+
+    // array of alert types with css tags
+    $scope.alertTypes = {primary: 'primary', info: 'info', warning: 'warning', danger: 'danger', success: 'success'};
+
+    $scope.addAlert = function (type, message) {
+
+//        limit list to 3
+        if ($scope.alerts.length >= 3) {
+            $scope.alerts.splice(0, 1);
+        }
+//        add new alert
+        $scope.alerts.push({type: type, msg: message});
+    };
+
+    var vectorSplitter = 'GGAGTGAGACCGCAGCTGGCACGACAGGTTTGCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGCCAAGCTTGCATGCCTGCAGGTCGACTCTAGAGGATCCCCGGGTACCGAGCTCGAATTCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACGGTCTCACGCT';
 
 //    make the scope aware of part groups
     $scope.partsGroups = {};
 
+
 //    to allow a blank option in selects
-    var blankOption = {label: "NONE", fake: true};
+//    var blankOption = {label: "NONE", fake: true};
+
+
+    $scope.cannotGetParts = function () {
+        $scope.addAlert($scope.alertTypes.danger, 'could not get list of parts, Please try again');
+    };
+
+    var locationParts = $location.search();
+    if (locationParts && locationParts.parts) {
+        var parts = locationParts.parts.split(",");
+        if (parts && parts.length && parts.length > 0) {
+            $scope.partTypes = parts;
+        } else {
+            $scope.cannotGetParts();
+        }
+    } else {
+        $scope.cannotGetParts();
+    }
 
 //    current gate parts
-    $scope.gate = [];
+    $scope.gateParts = [];
 
 //    get part types from picker
-    $scope.partTypes = ['pro', '5u', 'cds', '3u+ter'];
+//    $scope.partTypes = ['orp', 'u5', 'sdc', '3u+ter'];
 
-//    data sty;e
+//    data style
 //    [{type,[parts]},{type,[parts]},{type,[parts]}]
 
 //    fake part for when a user wants to add their own seq
@@ -22,39 +64,45 @@ app.controller('partController', ['$scope', '$http', function ($scope, $http) {
 
     $http.get('/vectors').success(function (vectors) {
         $scope.vectors = vectors;
-//        console.log($scope.vectors);
     }).error(function () {
         $scope.addAlert($scope.alertTypes.danger, 'We could not get the vectors from /vectors, the app will fail');
     });
 
+    $scope.refreshParts = function () {
+
 //    get all available parts
-    $http.get('/parts').success(function (parts) {
-        $scope.parts = parts;
-//        for eact part type
-        $scope.partTypes.forEach(function (pt, int) {
+        $http.get('/parts').success(function (parts) {
+            $scope.parts = parts;
+//        for each part type
+            $scope.partTypes.forEach(function (pt, int) {
 //            describe the object
-            $scope.partsGroups[int] = {};
-            $scope.partsGroups[int].type = pt;
-            $scope.partsGroups[int].parts = [];
+
+                $scope.partsGroups[int] = {};
+                $scope.partsGroups[int].type = pt;
+                $scope.partsGroups[int].parts = [];
 //            $scope.partsGroups[int].parts.push(blankOption);
 //            for each part
 
-
-            $scope.parts.forEach(function (part) {
+                $scope.parts.forEach(function (part) {
 //                get type from label
-                var type = part.label.split("-")[0];
+                    var type = part.label.split("-")[0];
 //                if the part type is same as the type
-                if (pt.toUpperCase() == type.toUpperCase()) {
+                    if (pt.toUpperCase() == type.toUpperCase()) {
 //                    push matching part into sub array
-                    $scope.partsGroups[int].parts.push(part);
-                }
+                        $scope.partsGroups[int].parts.push(part);
+                    }
+                });
+                //            add custom part option
+                $scope.partsGroups[int].parts.push(customPart);
+
             });
-            //            add custom part option
-            $scope.partsGroups[int].parts.push(customPart);
+        }).error(function () {
+            $scope.addAlert($scope.alertTypes.danger, 'We could not get the parts from /parts, the app will fail');
         });
-    }).error(function () {
-        $scope.addAlert($scope.alertTypes.danger, 'We could not get the parts from /parts, the app will fail');
-    });
+        console.log($scope);
+    };
+
+    $scope.refreshParts();
 
 //    return the append for the col styles based on the amount of items in partTypes the list
     $scope.getColSize = function () {
@@ -95,13 +143,12 @@ app.controller('partController', ['$scope', '$http', function ($scope, $http) {
 
         var currentPart = selector.opt;
 
-        $scope.gate[selector.$index] = currentPart;
+        $scope.gateParts[selector.$index] = currentPart;
 
 //        if the selector is blank/reset then it will not have any data bound to it
         if (currentPart) {
 
             if (currentPart.label == "Custom") {
-                console.log('its a custom part');
             }
 
 //            is not far left
@@ -130,6 +177,7 @@ app.controller('partController', ['$scope', '$http', function ($scope, $http) {
 
         //        process the select to the left of the modified select
         function processLeft() {
+            console.log(selector);
             if (selector.$$prevSibling) {
                 selector.$$prevSibling.part.parts.forEach(function (part) {
                     enableOption(selector.$$prevSibling, part);
@@ -173,24 +221,6 @@ app.controller('partController', ['$scope', '$http', function ($scope, $http) {
     };
 
 
-    // array of alert types with css tags
-    $scope.alertTypes = {primary: 'primary', info: 'info', warning: 'warning', danger: 'danger', success: 'success'};
-
-//    list of visable alerts
-    $scope.alerts = [
-    ];
-
-
-    $scope.addAlert = function (type, message) {
-
-//        limit list to 3
-        if ($scope.alerts.length >= 3) {
-            $scope.alerts.splice(0, 1);
-        }
-//        add new alert
-        $scope.alerts.push({type: type, msg: message});
-    };
-
 //    remove alert from list + view
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
@@ -198,11 +228,38 @@ app.controller('partController', ['$scope', '$http', function ($scope, $http) {
 
 //    process the final output
     $scope.build = function () {
-//TODO
+//TODO EVERYTHING
 
 
         var vector = $scope.vector;
-        var parts = $scope.gate;
+        var parts = $scope.gateParts;
+
+        if (!$scope.vector || !$scope.vector.seq.length || !$scope.vector.seq.length > 1) {
+            $scope.addAlert($scope.alertTypes.warning, 'Select a vector');
+            return;
+        }
+
+
+        if(!parts || !parts.length || !parts.length > 0){
+            //TODO ERROR
+        }
+        console.log(parts);
+
+
+        var splitVector = vector.seq.split(vectorSplitter);
+        if (splitVector && splitVector.length == 2) {
+            //good
+            var tmppy = '';
+            parts.forEach(function (part) {
+                tmppy += '\n' + part.seq;
+            });
+            var whore = splitVector[0] + tmppy + '\n' + splitVector[1];
+            $('#resultstring').text(whore);
+            $('#resultwrap').show();
+        } else {
+            //bad
+            $scope.addAlert($scope.alertTypes.warning, 'Could not build it :(');
+        }
 
 
         //        $('#resultwrap').show();
@@ -212,19 +269,47 @@ app.controller('partController', ['$scope', '$http', function ($scope, $http) {
         }).error(function () {
             $scope.addAlert($scope.alertTypes.danger, 'Got error');
         });
-    }
+    };
+
+    $scope.saveBridge = function () {
+
+        var vector = $scope.vector;
+        var parts = $scope.gateParts;
+
+        var gateName = $scope.bridgeName;
+
+        var partsSeqs = [];
+
+        parts.forEach(function (p) {
+            partsSeqs.push(p.label);
+        });
+
+        $http.post('/savebridge', [gateName, vector.label, partsSeqs]).success(function () {
+            $scope.addAlert($scope.alertTypes.success, 'Saved it.');
+            $scope.reloadBridges();
+        }).error(function () {
+            $scope.addAlert($scope.alertTypes.danger, 'Failed to save.');
+        });
+    };
+
+    $scope.reloadBridges = function () {
+        $http.get('/loadbridge').success(function (bridges) {
+            $scope.savedBridges = bridges;
+        }).error(function () {
+        });
+    };
+    $scope.reloadBridges();
+
+    $scope.setBridge = function (bridgeToLoad) {
+
+        $scope.partTypes = [];
+
+        bridgeToLoad.parts.forEach(function (part) {
+            var type = part.split("-")[0];
+            $scope.partTypes.push(type);
+        });
+
+    };
+
 }]);
-
-//handle saved bridges TODO
-function gateController($scope, $http) {
-
-    $scope.addGate = function () {
-
-    };
-
-    $scope.loadGate = function () {
-
-    };
-
-}
 

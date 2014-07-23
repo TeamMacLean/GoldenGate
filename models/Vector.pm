@@ -41,7 +41,7 @@ sub new {
 #        }
 #    }
 
-#        my $seq = $ggFeature->spliced_seq->seq;
+        my $seq = $seq_object->seq;
 #        my $ohr = substr $seq, -4;
 #        my $ohl = substr $seq, 0, 4;
 
@@ -57,8 +57,8 @@ sub new {
 
         my $self = {
             _label => $label,
-            _file => $file
-#            _seq  => $seq,
+            _file => $file,
+            _seq  => $seq
 #            _overhang_l => $ohl,
 #            _overhang_r => $ohr
         };
@@ -67,7 +67,7 @@ sub new {
 
         return $self;
 #    } else {
-        print "could not find gg part in $path, skipping.\n";
+#        print "could not find vector in $file, skipping.\n";
         return undef;
     }
 #}

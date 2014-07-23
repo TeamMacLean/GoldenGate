@@ -24,14 +24,14 @@
     <![endif]-->
 
 </head>
-<body ng-app="goldenGate">
+<body ng-app="goldenGate" ng-controller="partController">
 <div id="bodywrap">
-    <div id="main" ng-controller="partController">
+    <div id="main">
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img" src="/gate2.png"></a>
+                    <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs" src="/gate2.png"></a>
                 </div>
                 <span data-toggle="modal" data-target="#loadModal"
                       class="mega-octicon octicon-cloud-download pull-right fake-button"></span>
@@ -70,7 +70,8 @@
         <!-- /headerwrap -->
         <div id="resultwrap">
             <div class="container">
-                <h2 id="resultstring"></h2>
+                <h2>TA DAH!</h2>
+                <h3 id="resultstring"></h3>
 
                 <div class="row margin-top-md margin-btm-sm">
                     <button data-toggle="modal" data-target="#saveModal" class="btn btn-lg btn-default" id="saveit">SAVE
@@ -93,7 +94,7 @@
         </p>
     </div>
 </div>
-<div class="modal fade" id="saveModal" ng-controller="gateController">
+<div class="modal fade" id="saveModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -104,10 +105,10 @@
                 <form class="form-horizontal" role="form" ng-submit="addGate()">
                     <div class="form-group">
                         <label class="sr-only" for="bridgename">Bridge Name</label>
-                        <input type="text" ng-model="savedBridge" class="form-control" id="bridgename"
+                        <input type="text" ng-model="bridgeName" class="form-control" id="bridgename"
                                placeholder="Name your bridge">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-default center-block">Save</button>
+                    <button type="submit" class="btn btn-lg btn-default center-block" data-dismiss="modal" ng-click="saveBridge()">Save</button>
                 </form>
             </div>
         </div>
@@ -124,7 +125,8 @@
                 <h4 class="modal-title">LOAD A BRIDGE</h4>
             </div>
             <div class="modal-body">
-                <ul>
+                <ul ng-repeat="savedBridge in savedBridges">
+                    <a ng-click="setBridge(savedBridge)">{{savedBridge.name}}</a>
                 </ul>
             </div>
         </div>
@@ -135,6 +137,7 @@
 <!-- /.modal -->
 <script src="/components/jquery/dist/jquery.min.js"></script>
 <script src="/components/angular/angular.min.js"></script>
+<script src="/components/angular-route/angular-route.js"></script>
 <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="/components/nprogress/nprogress.js"></script>

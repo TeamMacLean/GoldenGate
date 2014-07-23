@@ -66,7 +66,7 @@ sub new {
 
         return $self;
     } else {
-        print "could not find gg part in $path, skipping.\n";
+        print "could not find gg part in $file, skipping.\n";
         return undef;
     }
 }

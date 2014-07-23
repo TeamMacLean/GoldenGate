@@ -29,6 +29,7 @@ my $dir = $partsFolder;
         if(defined($doc)){
 #           update it
             print "updating in db.\n";
+            $mango->db('goldengate')->collection('vectors')->update({label => $part->{_label}}, {'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}, 'file' =>$part->{_file}});
         } else {
 #           add new
             if($part->{_label} && $part->{_file}){
