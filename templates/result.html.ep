@@ -31,10 +31,13 @@
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs" src="/gate2.png"></a>
+                    <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs"
+                                                                       src="/gate2.png">
+                    </a>
                 </div>
                 <span data-toggle="modal" data-target="#loadModal"
-                      class="mega-octicon octicon-cloud-download pull-right fake-button"></span>
+                      class="mega-octicon octicon-cloud-download pull-right fake-button">
+                      </span>
             </div>
         </div>
         <div id="headerwrap">
@@ -57,20 +60,38 @@
                         </div>
                     </div>
                 </div>
-                    <h3 class="partType">Vector</h3>
-                    <select id="vec" class="form-control seq-selector" ng-options="vector as vector.file for vector in vectors" ng-model="vector" >
-                        <option value="" selected>---</option>
-                    </select>
+                <h3 class="partType">Vector</h3>
+                <select id="vec" class="form-control seq-selector"
+                        ng-options="vector as vector.file for vector in vectors" ng-model="vector">
+                    <option value="" selected>---</option>
+                </select>
 
                 <div class="row margin-top-md">
                     <button class="btn btn-lg btn-default" id="buildit" ng-click="build()">BUILD IT</button>
+                    </div>
+                    <!--<h1>Things that do not work:</h1>-->
+                    <!--<h4><span class="octicon octicon-pin"></span> Loading pre made bridges</h4>-->
+                    <!--<h4><span class="octicon octicon-pin"></span> Custom parts</h4>-->
+                    <!--<h4><span class="octicon octicon-pin"></span> Custom Vectors</h4>-->
                 </div>
-            </div>
         </div>
         <!-- /headerwrap -->
         <div id="resultwrap">
             <div class="container">
                 <h2>TA DAH!</h2>
+
+                <div id="canvas-holder">
+                    <canvas id="donut" width="300" height="300"></canvas>
+                </div>
+
+                <div>
+                    <a href="/{{outputDownload}}" target="_blank">
+                        <h1>
+                            Download
+                        </h1>
+                    </a>
+                </div>
+
                 <h3 id="resultstring"></h3>
 
                 <div class="row margin-top-md margin-btm-sm">
@@ -108,7 +129,9 @@
                         <input type="text" ng-model="bridgeName" class="form-control" id="bridgename"
                                placeholder="Name your bridge">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-default center-block" data-dismiss="modal" ng-click="saveBridge()">Save</button>
+                    <button type="submit" class="btn btn-lg btn-default center-block" data-dismiss="modal"
+                            ng-click="saveBridge()">Save
+                    </button>
                 </form>
             </div>
         </div>
@@ -141,6 +164,7 @@
 <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="/components/nprogress/nprogress.js"></script>
+<script src="/components/chartjs/Chart.min.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/main.js"></script>
 </body>

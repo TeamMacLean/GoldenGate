@@ -6,6 +6,10 @@ app.config(['$locationProvider', function ($locationProvider) {
 
 app.controller('partController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
+    //TODO RE ORDER ALL THIS SHIT!
+    var myDoughnutChart;
+    $scope.vector = {};
+    $scope.notEnoughParts = false;
 
 //    list of visable alerts
     $scope.alerts = [
@@ -70,6 +74,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
     $scope.refreshParts = function () {
 
+
 //    get all available parts
         $http.get('/parts').success(function (parts) {
             $scope.parts = parts;
@@ -82,24 +87,31 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
                 $scope.partsGroups[int].parts = [];
 //            $scope.partsGroups[int].parts.push(blankOption);
 //            for each part
-
+                var typeCount = 0;
                 $scope.parts.forEach(function (part) {
+
 //                get type from label
                     var type = part.label.split("-")[0];
 //                if the part type is same as the type
                     if (pt.toUpperCase() == type.toUpperCase()) {
 //                    push matching part into sub array
+                        typeCount++;
                         $scope.partsGroups[int].parts.push(part);
                     }
                 });
-                //            add custom part option
-                $scope.partsGroups[int].parts.push(customPart);
+                if (typeCount < 1) {
+                    $scope.notEnoughParts = true;
+                }
+                //            //TODO add custom part option
+//                $scope.partsGroups[int].parts.push(customPart);
 
             });
+            if ($scope.notEnoughParts == true) {
+                $scope.addAlert($scope.alertTypes.danger, 'We do not have parts for all the types you have requested');
+            }
         }).error(function () {
             $scope.addAlert($scope.alertTypes.danger, 'We could not get the parts from /parts, the app will fail');
         });
-        console.log($scope);
     };
 
     $scope.refreshParts();
@@ -177,8 +189,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
         //        process the select to the left of the modified select
         function processLeft() {
-            console.log(selector);
-            if (selector.$$prevSibling) {
+            if (selector.$$prevSibling && selector.$$prevSibling.part) {
                 selector.$$prevSibling.part.parts.forEach(function (part) {
                     enableOption(selector.$$prevSibling, part);
                     if (currentPart.overhang_l == part.overhang_r) {
@@ -192,7 +203,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
 //        process the select to the right of the modified select
         function processRight() {
-            if (selector.$$nextSibling) {
+            if (selector.$$nextSibling && selector.$$nextSibling.part) {
                 selector.$$nextSibling.part.parts.forEach(function (part) {
                     if (currentPart.overhang_r == part.overhang_l) {
                         enableOption(selector.$$nextSibling, part);
@@ -230,45 +241,105 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
     $scope.build = function () {
 //TODO EVERYTHING
 
+        $("#donut").hide();
+        $('#resultwrap').slideUp();
+
 
         var vector = $scope.vector;
         var parts = $scope.gateParts;
 
-        if (!$scope.vector || !$scope.vector.seq.length || !$scope.vector.seq.length > 1) {
+        if (!$scope.vector || !$scope.vector.seq || !$scope.vector.seq.length || !$scope.vector.seq.length > 1) {
             $scope.addAlert($scope.alertTypes.warning, 'Select a vector');
             return;
         }
 
 
-        if(!parts || !parts.length || !parts.length > 0){
+        if (!parts || !parts.length || !parts.length > 0 || parts.length != $scope.partTypes.length) {
             //TODO ERROR
+            $scope.addAlert($scope.alertTypes.warning, 'Please make a selection of each part type');
+            return;
         }
-        console.log(parts);
 
 
         var splitVector = vector.seq.split(vectorSplitter);
         if (splitVector && splitVector.length == 2) {
             //good
-            var tmppy = '';
-            parts.forEach(function (part) {
-                tmppy += '\n' + part.seq;
+//            var tmppy = '';
+//            parts.forEach(function (part) {
+//                tmppy += '\n' + part.seq;
+//            });
+//            var whore = splitVector[0] + tmppy + '\n' + splitVector[1];
+//            $('#resultstring').text(whore);
+
+
+
+            $('#resultwrap').slideDown(400, function(){
+                $("#donut").show();
+                $scope.renderDonut();
             });
-            var whore = splitVector[0] + tmppy + '\n' + splitVector[1];
-            $('#resultstring').text(whore);
-            $('#resultwrap').show();
+
+
+
         } else {
             //bad
-            $scope.addAlert($scope.alertTypes.warning, 'Could not build it :(');
+            $scope.addAlert($scope.alertTypes.warning, 'splitVector not valid or splitVector.length != 2');
         }
 
 
         //        $('#resultwrap').show();
 
-        $http.post('/buildit', [vector, parts]).success(function () {
-            $scope.addAlert($scope.alertTypes.success, 'Got success.');
-        }).error(function () {
-            $scope.addAlert($scope.alertTypes.danger, 'Got error');
+        $http.post('/buildit', [vector, parts]).success(function (outputFile) {
+            $scope.outputDownload = outputFile;
+
+//            $scope.addAlert($scope.alertTypes.success, 'Got success.');
+        }).error(function (response, code) {
+            $scope.addAlert($scope.alertTypes.danger, 'http post error ' + code);
         });
+    };
+
+    function shuffle(o) { //v1.0
+        for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    }
+
+    $scope.renderDonut = function () {
+        var data = [];
+
+        var graphPartCount = parts.length;
+        var graphVecPercent = 60;
+
+        var graphPartPercent = (100 - graphVecPercent) / graphPartCount;
+
+        var chartColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c"];
+        chartColors = shuffle(chartColors);
+
+        data.push(
+            {
+                value: graphVecPercent,
+                color: chartColors[graphPartCount],
+                highlight: "#FFC870",
+                label: "Yellow",
+                labelColor: 'white'
+            }
+        );
+        parts.forEach(function (part, pos) {
+            data.push(
+                {
+                    value: graphPartPercent, color: chartColors[pos], highlight: "#FFC870", label: graphPartPercent
+                }
+            );
+        });
+
+        var ctx = document.getElementById("donut").getContext("2d");
+        myDoughnutChart = new Chart(ctx).Doughnut(data, {responsive: true});
+
+//        ctx.translate(0,0);
+//        ctx.rotate(5*Math.PI / 180);
+
+        ctx.translate(150, 150);
+        ctx.rotate(72 * Math.PI / 180);
+        ctx.translate(-150, -150);
+
     };
 
     $scope.saveBridge = function () {
@@ -310,6 +381,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         });
 
     };
+
 
 }]);
 

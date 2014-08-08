@@ -4,25 +4,46 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GoldenGate</title>
-    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="description" content="A visual tool for creating .">
+    <meta name="keywords" content="synbio, golden gate, synthetic, biology, tsl, assembly">
+    <meta name="author" content="Martin Page, TSL Bioinformatics, TSL SynBio">
+
+    <link rel="shortcut icon" href="/favicon.ico?v=3">
+
+    <title>Golden Gate</title>
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/components/octicons/octicons/octicons.css" rel="stylesheet">
+    <link href="/components/nprogress/nprogress.css" rel="stylesheet">
+    <link href="/components/steamroller/steamroller.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 <body>
 
-<section id="mainsec">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs"
+                                                               src="/gate2.png"></a>
+        </div>
+                <span data-toggle="modal" data-target="#loadModal"
+                      class="mega-octicon octicon-cloud-download pull-right fake-button"></span>
+    </div>
+</div>
+
+<section id="mainsec" class="navmargin">
 <div class="container">
 <h1 class="centered">Pick a Template</h1>
 <!--row START-->
+
+<a href="result?parts=PRO,CDS,3U%2BTer" class="gate">TEST</a>
+
 <a href="/result?parts=PRO+5U,CDS,Ter">
     <div class="row gate">
         <div class="col-sm-5">
@@ -214,7 +235,7 @@
 <!--row END-->
 
 <!--row START-->
-<a href="/result?parts=PRO+5U,CDS,Ter">
+<a href="/result?parts=PRO+5U,NT1,NT2/SP,CDS,Ter">
     <div class="row gate">
         <div class="col-sm-5">
             <div class="row">

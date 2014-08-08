@@ -1,5 +1,5 @@
 .idea
 *.iml
 public/components
-
+public/output/*.gb
 data
