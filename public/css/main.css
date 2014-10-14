@@ -299,8 +299,6 @@ a {
     color: #FFF;
 }
 
-
-
 .close {
     opacity: 1;
 }
@@ -446,6 +444,7 @@ a {
     -ms-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
+
 .gate:hover {
     background-color: #fff;
 }
@@ -466,6 +465,14 @@ a {
     font-size: 16px;
 }
 
-.navmargin{
+.navmargin {
     margin-top: 70px;
+}
+
+.tagType h2 {
+    color: #ECF0F1;
+}
+
+.toggle-section {
+    display: none;
 }

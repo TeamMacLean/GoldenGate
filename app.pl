@@ -105,8 +105,8 @@ post '/buildit' => sub {
         #add end of vector to part list
         my $startPoint = length($fullSeq);
         my $endPoint = length($fullSeq)+length($vectorSplit[1]);
-        my $newFeat = new Bio::SeqFeature::Generic(-start => $startPoint, -end => $endPoint, -strand => 1, -primary_tag => 'left_vector');
-        push (@finalParts, $newFeat);
+        my $newFeatK = new Bio::SeqFeature::Generic(-start => $startPoint, -end => $endPoint, -strand => 1, -primary_tag => 'left_vector');
+        push (@finalParts, $newFeatK);
 
 
 $fullSeq = $fullSeq.$vectorSplit[1];

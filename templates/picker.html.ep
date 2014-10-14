@@ -18,10 +18,10 @@
     <link href="/components/steamroller/steamroller.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
-    <!--[if lt IE 9]>
+    <!-- [if lt IE 9] >
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <! [endif] -->
 
 </head>
 <body>
@@ -38,623 +38,195 @@
 </div>
 
 <section id="mainsec" class="navmargin">
-<div class="container">
-<h1 class="centered">Pick a Template</h1>
-<!--row START-->
+    <div class="container">
+        <h1 class="centered">Pick a Template</h1>
+        <!--row START-->
 
-<a href="result?parts=PRO,CDS,3U%2BTer" class="gate">TEST</a>
 
-<a href="/result?parts=PRO+5U,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="green">
-                <p>PRO+5U</p>
+        <div class="tagType">
+            <h1>Simple</h1>
+
+            <div class="toggle-section">
+
+                <a href="/result?parts=PRO+5U,CDS1,3U+Ter">
+                    <h2>
+                        PRO+5U
+                        CDS1
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO+5U,CDS1,3U+Ter">
+                    <h2>
+                        PRO
+                        5U
+                        CDS1
+                        3U+Ter
+                    </h2>
+                </a>
+
             </div>
+
         </div>
-        <div class="col-sm-5">
-            <div class="blue">
-                <p>CDS</p>
+
+        <div class="tagType">
+            <h1>N terminal tags</h1>
+
+            <div class="toggle-section">
+
+                <a href="/result?parts=PRO+5Uf,NT1,CDS1,3U+Ter">
+                    <h2>
+                        PRO+5Uf
+                        NT1
+                        CDS1
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO,5Uf,NT1,CDS1,3U+Ter">
+                    <h2>
+                        PRO
+                        5Uf
+                        NT1
+                        CDS1
+                        3U+Ter
+                    </h2>
+                </a>
+                <a href="/result?parts=PRO,5U+NT1,CDS1,3U+Ter">
+                    <h2>
+                        PRO
+                        5U+NT1
+                        CDS1
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO+5U,NT2,CDS2,3U+Ter">
+                    <h2>
+                        PRO+5U
+                        NT2
+                        CDS2
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO,5U,NT2,CDS2,3U+Ter">
+                    <h2>
+                        PRO
+                        5U
+                        NT2
+                        CDS2
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO+5Uf,NT1,NT2,CDS2,3U+Ter">
+                    <h2>
+                        PRO+5Uf
+                        NT1
+                        NT2
+                        CDS2
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO,5U,NT1,NT2,CDS2,3U+Ter">
+                    <h2>
+                        PRO
+                        5Uf
+                        NT1
+                        NT2
+                        CDS2
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO,5U+NT1,NT2,CDS2,3U+Ter">
+                    <h2>
+                        PRO
+                        5U+NT1
+                        NT2
+                        CDS2
+                        3U+Ter
+                    </h2>
+                </a>
+
             </div>
+
         </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
+
+        <div class="tagType">
+            <h1>C terminal tags</h1>
+
+            <div class="toggle-section">
+
+                <a href="/result?parts=PRO+5U,CDS1ns,CT,3U+Ter">
+                    <h2>
+                        PRO+5U
+                        CDS1ns
+                        CT
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO,5U,CDS1ns,CT,3U+Ter">
+                    <h2>
+                        PRO
+                        5U
+                        CDS1ns
+                        CT
+                        3U+Ter
+                    </h2>
+                </a>
+
             </div>
+
         </div>
+        <div class="tagType">
+            <h1>N and C terminal tags</h1>
+
+            <div class="toggle-section">
+
+                <a href="/result?parts=PRO+5Uf,NT1,CDS1ns,CT,3U+Ter">
+                    <h2>
+                        PRO+5Uf
+                        NT1
+                        CDS1ns
+                        CT
+                        3U+Ter
+                    </h2>
+                </a>
+
+                <a href="/result?parts=PRO,5Uf,NT1,CDS1ns,CT,3U+Ter">
+                    <h2>
+                        PRO
+                        5Uf
+                        NT1
+                        CDS1ns
+                        CT
+                        3U+Ter
+                    </h2>
+                </a>
+                <a href="/result?parts=PRO,5U+NT,CDS1ns,CT,3U+Ter">
+                    <h2>
+                        PRO
+                        5U+NT1
+                        CDS1ns
+                        CT
+                        3U+Ter
+                    </h2>
+                </a>
+            </div>
+
+        </div>
+
     </div>
-</a>
-<!--row END-->
 
-<!--row START-->
-<a href="/result?parts=PRO+5U,NT2/SP,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="green">
-                <p>PRO+5U</p>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,CDS,CT,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="green">
-                <p>PRO+5U</p>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,NT2/SP,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="green">
-                <p>PRO+5U</p>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,NT1,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="green">
-                        <p>PRO+5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="blue">
-                <p>CDS</p>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,NT1,CDS,CT,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="green">
-                        <p>PRO+5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,NT1,NT2/SP,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="green">
-                        <p>PRO+5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="green">
-                        <p>PRO+5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="blue">
-                <p>CDS</p>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO+5U,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO,5U,NT1,,NT2/SP,CDS,CT,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>5U</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT1</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO,5U+NT,CDS,TER">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="greentoblue">
-                        <p>5U + NT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="blue">
-                <p>CDS</p>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO,5U+NT,NT2/SP,CDS,TER">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="greentoblue">
-                        <p>5U + NT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO,5U+NT,CT,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="greentoblue">
-                        <p>5U + NT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>CT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-
-<!--row START-->
-<a href="/result?parts=PRO,5U+NT,NT2/SP,CDS,Ter">
-    <div class="row gate">
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="green">
-                        <p>PRO</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="greentoblue">
-                        <p>5U + NT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="blue">
-                        <p>NT2/SP</p>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="blue">
-                        <p>CDS</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="red">
-                <p>Ter</p>
-            </div>
-        </div>
-    </div>
-</a>
-<!--row END-->
-</div>
 </section>
 
 <script src="/components/jquery/dist/jquery.min.js"></script>
 <script src="/components/angular/angular.min.js"></script>
 <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
