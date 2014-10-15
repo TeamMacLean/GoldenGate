@@ -60,98 +60,35 @@ post '/buildit' => sub {
 
     my $seq_object_vector = $seqio_object_vector->next_seq;
 
-my @newVectorFeatures = [];
+my @finalParts = [];
+my $fullSeq = '';
 
 my @features = $seq_object_vector->get_SeqFeatures(); # just top level
     foreach my $feat ( @features ) {
-	print "Feature ",$feat->primary_tag," starts ",$feat->start," ends ",
-	$feat->end," strand ",$feat->strand,"\n";
+#	print "Feature ",$feat->primary_tag," starts ",$feat->start," ends ", $feat->end," strand ",$feat->strand,"\n";
 
         # features retain link to underlying sequence object
-        print "Feature sequence is ",$feat->seq->seq(),"\n"
+        my $thisSeq = $feat->seq->seq();
+#        print "Feature sequence is ",$thisSeq,"\n";
 
 
-
-#        if(NOT THE REMOVED ON){
-#        push(@newVectorFeatures,KEEPER);
-#        }
+#        push(@finalParts, $feat);
+        $fullSeq = $fullSeq . $thisSeq;
     }
 
+my $output_seq_obj = Bio::Seq->new(-seq => $fullSeq, -display_id => "CustomPart" );
 
 
+$output_seq_obj->add_SeqFeature(@features);
 
 
+my $timestamp = int (gettimeofday * 1000);
+#
+my $io = Bio::SeqIO->new(-format => "genbank", -file => ">public/output/GG_output_$timestamp.gb" );
+$io->write_seq($output_seq_obj);
 
-#
-#    my $vector_seq = $seq_object_vector->seq;
-#
-#    my @vectorSplit = split(/$splitter/, $vector_seq);
-#    my @finalParts;
-#
-#    #add start of vector to part list
-#    my $newFeat = new Bio::SeqFeature::Generic(-start => 1, -end => length($vectorSplit[0]), -strand => 1, -primary_tag => 'left_vector');
-#    push (@finalParts, $newFeat);
-#
-#
-#
-#
-#
-#
-#    my $fullSeq = $vectorSplit[0];
-#
-#    foreach my $realPart (@$parts) {
-#        my $ggFeature = undef;
-#        my $seqio_object_part = Bio::SeqIO->new(-file => $partsFolder."/".$realPart->{file} );
-#        my $seq_object_part = $seqio_object_part->next_seq;
-#
-#        for my $feat_object ($seq_object_part->get_SeqFeatures) {
-#            if($feat_object->primary_tag eq $featureName){
-#                $ggFeature = $feat_object;
-#                last;
-#             }
-#        }
-#
-#        if (defined($ggFeature)){
-#
-#        my $startPoint = length($fullSeq);
-#        my $endPoint = length($fullSeq)+length($ggFeature->spliced_seq->seq);
-#        print "from $startPoint to $endPoint\n";
-#
-#        $fullSeq = $fullSeq.$ggFeature->spliced_seq->seq;
-#
-#        my $newFeat = new Bio::SeqFeature::Generic(-start => $startPoint, -end => $endPoint, -strand => 1, -primary_tag => $realPart->{label});
-#        push (@finalParts, $newFeat);
-#
-#        }
-#
-#
-#     } #end loop
-#
-#
-#        #add end of vector to part list
-#        my $startPoint = length($fullSeq);
-#        my $endPoint = length($fullSeq)+length($vectorSplit[1]);
-#        my $newFeatK = new Bio::SeqFeature::Generic(-start => $startPoint, -end => $endPoint, -strand => 1, -primary_tag => 'left_vector');
-#        push (@finalParts, $newFeatK);
-#
-#
-#$fullSeq = $fullSeq.$vectorSplit[1];
-#
-#my $output_seq_obj = Bio::Seq->new(-seq => $fullSeq,
-#                            -display_id => "CustomPart" );
-#
-#$output_seq_obj->add_SeqFeature(@finalParts); #add all features
-#
-#my $timestamp = int (gettimeofday * 1000);
-#
-#my $io = Bio::SeqIO->new(-format => "genbank", -file => ">public/output/GG_output_$timestamp.gb" );
-#$io->write_seq($output_seq_obj);
-#
-##file created
-#
-#
-#
-#$self->render(text => "output/GG_output_$timestamp.gb");
+$self->render(text => "output/GG_output_$timestamp.gb");
+
 };
 
 

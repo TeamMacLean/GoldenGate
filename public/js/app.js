@@ -245,7 +245,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
     $scope.build = function () {
 //TODO EVERYTHING
 
-        $("#donut").hide();
+        //$("#donut").hide();
         $('#resultwrap').slideUp();
 
 
@@ -277,8 +277,8 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
 
             $('#resultwrap').slideDown(400, function () {
-                $("#donut").show();
-                $scope.renderDonut();
+                //$("#donut").show();
+                //$scope.renderDonut();
             });
 
 
@@ -299,50 +299,50 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         });
     };
 
-    function shuffle(o) { //v1.0
-        for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-        return o;
-    }
+    //function shuffle(o) { //v1.0
+    //    for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    //    return o;
+    //}
 
-    $scope.renderDonut = function () {
-        var data = [];
-
-        var graphPartCount = parts.length;
-        var graphVecPercent = 60;
-
-        var graphPartPercent = (100 - graphVecPercent) / graphPartCount;
-
-        var chartColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c"];
-        chartColors = shuffle(chartColors);
-
-        data.push(
-            {
-                value: graphVecPercent,
-                color: chartColors[graphPartCount],
-                highlight: "#FFC870",
-                label: "Yellow",
-                labelColor: 'white'
-            }
-        );
-        parts.forEach(function (part, pos) {
-            data.push(
-                {
-                    value: graphPartPercent, color: chartColors[pos], highlight: "#FFC870", label: graphPartPercent
-                }
-            );
-        });
-
-        var ctx = document.getElementById("donut").getContext("2d");
-        myDoughnutChart = new Chart(ctx).Doughnut(data, {responsive: true});
-
-//        ctx.translate(0,0);
-//        ctx.rotate(5*Math.PI / 180);
-
-        ctx.translate(150, 150);
-        ctx.rotate(72 * Math.PI / 180);
-        ctx.translate(-150, -150);
-
-    };
+//    $scope.renderDonut = function () {
+//        var data = [];
+//
+//        var graphPartCount = parts.length;
+//        var graphVecPercent = 60;
+//
+//        var graphPartPercent = (100 - graphVecPercent) / graphPartCount;
+//
+//        var chartColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c"];
+//        chartColors = shuffle(chartColors);
+//
+//        data.push(
+//            {
+//                value: graphVecPercent,
+//                color: chartColors[graphPartCount],
+//                highlight: "#FFC870",
+//                label: "Yellow",
+//                labelColor: 'white'
+//            }
+//        );
+//        parts.forEach(function (part, pos) {
+//            data.push(
+//                {
+//                    value: graphPartPercent, color: chartColors[pos], highlight: "#FFC870", label: graphPartPercent
+//                }
+//            );
+//        });
+//
+//        var ctx = document.getElementById("donut").getContext("2d");
+//        myDoughnutChart = new Chart(ctx).Doughnut(data, {responsive: true});
+//
+////        ctx.translate(0,0);
+////        ctx.rotate(5*Math.PI / 180);
+//
+//        ctx.translate(150, 150);
+//        ctx.rotate(72 * Math.PI / 180);
+//        ctx.translate(-150, -150);
+//
+//    };
 
     $scope.saveBridge = function () {
 
