@@ -14,8 +14,6 @@
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/components/octicons/octicons/octicons.css" rel="stylesheet">
-    <link href="/components/nprogress/nprogress.css" rel="stylesheet">
-    <link href="/components/steamroller/steamroller.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- [if lt IE 9] >
@@ -32,8 +30,9 @@
             <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs"
                                                                src="/gate2.png"></a>
         </div>
-                <span data-toggle="modal" data-target="#loadModal"
-                      class="mega-octicon octicon-cloud-download pull-right fake-button"></span>
+        <!--<span data-toggle="modal" data-target="#loadModal"-->
+        <!--class="mega-octicon octicon-cloud-download pull-right fake-button">-->
+        <!--</span>-->
     </div>
 </div>
 

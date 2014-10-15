@@ -54,6 +54,15 @@ a {
     text-decoration: none;
 }
 
+.form-control, .btn, .btn-lg, .btn-default:hover, .btn-default:focus, .btn-default:active,
+.btn-default.active, .open .dropdown-toggle.btn-default {
+    border-radius: 0px;
+    border: none;
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 ::-moz-selection {
     color: #fff;
     text-shadow: none;

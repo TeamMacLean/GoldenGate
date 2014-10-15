@@ -14,14 +14,12 @@
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/components/octicons/octicons/octicons.css" rel="stylesheet">
-    <link href="/components/nprogress/nprogress.css" rel="stylesheet">
-    <link href="/components/steamroller/steamroller.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
-    <!--[if lt IE 9]>
+    <!-- [if lt IE 9] >
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <! [endif] -->
 
 </head>
 <body ng-app="goldenGate" ng-controller="partController">
@@ -35,9 +33,9 @@
                                                                        src="/gate2.png">
                     </a>
                 </div>
-                <span data-toggle="modal" data-target="#loadModal"
-                      class="mega-octicon octicon-cloud-download pull-right fake-button">
-                      </span>
+                <!--<span data-toggle="modal" data-target="#loadModal"-->
+                <!--class="mega-octicon octicon-cloud-download pull-right fake-button">-->
+                <!--</span>-->
             </div>
         </div>
         <div id="headerwrap">
@@ -52,8 +50,7 @@
                         <div class="col-sm-{{getColSize()}}">
                             <h3 class="partType">{{part.type}}</h3>
                             <select id="{{part.type}}" class="form-control seq-selector"
-                                    ng-options="opt as opt.label for opt in part.parts" ng-change="checkCompat(this)"
-                                    ng-model="opt">
+                                    ng-options="opt as opt.label for opt in part.parts" ng-change="checkCompat(this)" ng-model="opt">
                                 <option value="" selected>---</option>
                             </select>
                             <input type="text" class="form-control" ng-show="false">
@@ -68,12 +65,8 @@
 
                 <div class="row margin-top-md">
                     <button class="btn btn-lg btn-default" id="buildit" ng-click="build()">BUILD IT</button>
-                    </div>
-                    <!--<h1>Things that do not work:</h1>-->
-                    <!--<h4><span class="octicon octicon-pin"></span> Loading pre made bridges</h4>-->
-                    <!--<h4><span class="octicon octicon-pin"></span> Custom parts</h4>-->
-                    <!--<h4><span class="octicon octicon-pin"></span> Custom Vectors</h4>-->
                 </div>
+            </div>
         </div>
         <!-- /headerwrap -->
         <div id="resultwrap">
@@ -129,9 +122,9 @@
                         <input type="text" ng-model="bridgeName" class="form-control" id="bridgename"
                                placeholder="Name your bridge">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-default center-block" data-dismiss="modal"
-                            ng-click="saveBridge()">Save
-                    </button>
+                    <!--<button type="submit" class="btn btn-lg btn-default center-block" data-dismiss="modal"-->
+                    <!--ng-click="saveBridge()">Save-->
+                    <!--</button>-->
                 </form>
             </div>
         </div>
@@ -139,31 +132,32 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
 <!-- /.modal -->
-<div class="modal fade" id="loadModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">LOAD A BRIDGE</h4>
-            </div>
-            <div class="modal-body">
-                <ul ng-repeat="savedBridge in savedBridges">
-                    <a ng-click="setBridge(savedBridge)">{{savedBridge.name}}</a>
-                </ul>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+<!--<div class="modal fade" id="loadModal">-->
+<!--<div class="modal-dialog">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--<h4 class="modal-title">LOAD A BRIDGE</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<ul ng-repeat="savedBridge in savedBridges">-->
+<!--<a ng-click="setBridge(savedBridge)">{{savedBridge.name}}</a>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!-- /.modal-content -->
+<!--</div>-->
+<!-- /.modal-dialog -->
+<!--</div>-->
 <!-- /.modal -->
+
 <script src="/components/jquery/dist/jquery.min.js"></script>
 <script src="/components/angular/angular.min.js"></script>
 <script src="/components/angular-route/angular-route.js"></script>
 <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="/components/nprogress/nprogress.js"></script>
 <script src="/components/chartjs/Chart.min.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/main.js"></script>

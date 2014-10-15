@@ -1,5 +1,6 @@
 var app = angular.module('goldenGate', ['ui.bootstrap']);
 
+
 app.config(['$locationProvider', function ($locationProvider) {
     $locationProvider.html5Mode(true);
 }]);
@@ -12,8 +13,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
     $scope.notEnoughParts = false;
 
 //    list of visable alerts
-    $scope.alerts = [
-    ];
+    $scope.alerts = [];
 
     // array of alert types with css tags
     $scope.alertTypes = {primary: 'primary', info: 'info', warning: 'warning', danger: 'danger', success: 'success'};
@@ -91,7 +91,8 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
                 $scope.parts.forEach(function (part) {
 
 //                get type from label
-                    var type = part.label.split("-")[0];
+//                    var type = part.label.split("-")[0];
+                    var type = part.type;
 //                if the part type is same as the type
                     if (pt.toUpperCase() == type.toUpperCase()) {
 //                    push matching part into sub array
@@ -160,15 +161,16 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 //        if the selector is blank/reset then it will not have any data bound to it
         if (currentPart) {
 
-            if (currentPart.label == "Custom") {
-            }
+            //if (currentPart.label == "Custom") {
+            //return;
+            //}
 
 //            is not far left
-            if (!selector.first) {
+            if (!selector.$first) {
                 processLeft();
             }
 //            is not far right
-            if (!selector.last) {
+            if (!selector.$last) {
                 processRight();
             }
         } else {
@@ -215,13 +217,15 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         }
 
         function enableOption(group, part) {
-            $("#" + group.part.type).find("option").filter(function () {
+            var select = group.part.type.replace('+', '\\+');
+            $("#" + select).find("option").filter(function () {
                 return part.label === $(this).text();
             }).attr("disabled", false);
         }
 
         function disableOption(group, part) {
-            $("#" + group.part.type).find("option").filter(function () {
+            var select = group.part.type.replace('+', '\\+');
+            $("#" + select).find("option").filter(function () {
                 return part.label === $(this).text();
             }).attr("disabled", true);
 
@@ -272,12 +276,10 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 //            $('#resultstring').text(whore);
 
 
-
-            $('#resultwrap').slideDown(400, function(){
+            $('#resultwrap').slideDown(400, function () {
                 $("#donut").show();
                 $scope.renderDonut();
             });
-
 
 
         } else {

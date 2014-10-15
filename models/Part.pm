@@ -4,6 +4,7 @@ use warnings;
 use Bio::SeqIO;
 use JSON;
 use Data::Printer;
+use File::Basename;
 
 my $featureName = 'Golden_Gate_Par';
 
@@ -27,6 +28,7 @@ sub new {
     }
 
     my $label = 'unknown';
+    my $type = 'unknown';
 
     if (defined($ggFeature)){
         my $start = $ggFeature->location->start;
@@ -44,6 +46,7 @@ sub new {
         my $ohr = substr $seq, -4;
         my $ohl = substr $seq, 0, 4;
 
+        $type = ( split( /_/,  basename($file) ))[1];
 
 #        my @type = split /-/ ,$label;
 #        p @type[0];
@@ -59,7 +62,8 @@ sub new {
             _seq  => $seq,
             _overhang_l => $ohl,
             _overhang_r => $ohr,
-            _file => $file
+            _file => $file,
+            _type => $type
         };
 
         bless $self, $class;
