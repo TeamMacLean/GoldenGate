@@ -7,39 +7,28 @@ use Cwd            qw( abs_path );
 use File::Basename qw( dirname );
 use lib dirname(abs_path($0)).'/../models';
 
+my $featureName = 'Golden_Gate_Cas';
+
 my $partsFolder = dirname(abs_path($0)).'/../data/Vectors';
 use Vector;
+
+my $mango = Mango->new('mongodb://localhost:27017');
+my $db = $mango->db('goldengate');
+my $collection = $db->collection('vectors');
+$collection->drop;
 
 # list filed in parts folder
 my $dir = $partsFolder;
     opendir(DIR, $dir) or die $!;
     while (my $file = readdir(DIR)) {
-        next if ($file =~ m/^\./);
-
-        my $part = new Part($partsFolder, $file);
-
-#        print "have part\n";
-
-        # PUT INTO DATABASE!
-        my $mango = Mango->new('mongodb://localhost:27017');
-
-        # Does it exist
-        my $doc = $mango->db('goldengate')->collection('vectors')->find_one({label => $part->{_label}});
-
-        if(defined($doc)){
-#           update it
-            print "updating in db.\n";
-            $mango->db('goldengate')->collection('vectors')->update({label => $part->{_label}}, {'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}, 'file' =>$part->{_file}});
-        } else {
-#           add new
-            if($part->{_label} && $part->{_file}){
-            print "adding to db.\n";
-                my $oid = $mango->db('goldengate')->collection('vectors')->insert({'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}, 'file' =>$part->{_file}});
-                print $oid."\n";
-            }
-        }
-#	print "$file\n";
+    next if ($file =~ m/^\./);
+    my $part = new Part($partsFolder, $file);
+    if($part->{_label} && $part->{_file}){
+        print "adding to db.\n";
+        my $oid = $collection->insert({'label'=>$part->{_label}, 'seq'=>$part->{_seq},'overhang_l'=>$part->{_overhang_l}, 'overhang_r'=>$part->{_overhang_r}, 'file' =>$part->{_file}});
+#        print $oid."\n";
     }
+}
 closedir(DIR);
 
 

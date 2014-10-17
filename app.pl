@@ -48,7 +48,7 @@ post '/buildit' => sub {
     my $update = Mojo::JSON->new->decode( $self->req->body );
 
 
-#    my $splitter = 'GGAGTGAGACCGCAGCTGGCACGACAGGTTTGCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGCCAAGCTTGCATGCCTGCAGGTCGACTCTAGAGGATCCCCGGGTACCGAGCTCGAATTCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACGGTCTCACGCT';
+    my $partToReplace = 'Golden_Gate_Cas';
 
 #    get vector from req
     my $vector = $update->[0];
@@ -60,34 +60,66 @@ post '/buildit' => sub {
 
     my $seq_object_vector = $seqio_object_vector->next_seq;
 
-my @finalParts = [];
-my $fullSeq = '';
+    my @finalParts;
+    my $fullSeq = '';
 
-my @features = $seq_object_vector->get_SeqFeatures(); # just top level
+    my @features = $seq_object_vector->get_SeqFeatures(); # just top level
+
+    my $currentPosition = 0;
+
     foreach my $feat ( @features ) {
-#	print "Feature ",$feat->primary_tag," starts ",$feat->start," ends ", $feat->end," strand ",$feat->strand,"\n";
 
-        # features retain link to underlying sequence object
-        my $thisSeq = $feat->seq->seq();
-#        print "Feature sequence is ",$thisSeq,"\n";
+        if($feat->primary_tag ne $partToReplace){
+            print($feat->primary_tag,"\n");
+            my $thisSeq = $feat->seq->seq();
+            $fullSeq = $fullSeq . $thisSeq;
 
+            my $end = $currentPosition+length($thisSeq);
 
-#        push(@finalParts, $feat);
-        $fullSeq = $fullSeq . $thisSeq;
+#	        print "Feature ",$feat->primary_tag," starts ",$feat->start," ends ", $feat->end," strand ",$feat->strand,"\n";
+            my $newFeat = new Bio::SeqFeature::Generic(-start => $currentPosition, -end => $end, -strand => $feat->strand, -primary_tag => $feat->primary_tag);
+            $currentPosition = $end;
+            push(@finalParts, $feat);
+        } else {
+#        ADD BRIDGE HERE!
+
+            foreach my $realPart (@$parts) {
+                my $ggFeature = undef;
+                my $seqio_object_part = Bio::SeqIO->new(-file => $partsFolder."/".$realPart->{file} );
+                my $seq_object_part = $seqio_object_part->next_seq;
+
+                for my $feat_object ($seq_object_part->get_SeqFeatures) {
+                    if($feat_object->primary_tag eq $featureName){
+                        $ggFeature = $feat_object;
+                        last;
+                     }
+                }
+
+                if (defined($ggFeature)){
+                    my $thisSeq = $ggFeature->seq->seq();
+    #                my $endPoint = length($fullSeq)+length($ggFeature->spliced_seq->seq);
+                    my $end = $currentPosition+length($thisSeq);
+#                    print "from $startPoint to $endPoint\n";
+
+                    $fullSeq = $fullSeq . $thisSeq;
+
+                    my $newFeat = new Bio::SeqFeature::Generic(-start => $currentPosition, -end => $end, -strand => 1, -primary_tag => $realPart->{label});
+                    $currentPosition = $end;
+                    push (@finalParts, $newFeat);
+
+                }
+            }
+        }
     }
 
-my $output_seq_obj = Bio::Seq->new(-seq => $fullSeq, -display_id => "CustomPart" );
+    my $output_seq_obj = Bio::Seq->new(-seq => $fullSeq, -display_id => "CustomPart" );
+    $output_seq_obj->add_SeqFeature(@finalParts);
+    my $timestamp = int (gettimeofday * 1000);
+    my $io = Bio::SeqIO->new(-format => "genbank", -file => ">public/output/out_$timestamp.gb" );
+    $io->write_seq($output_seq_obj);
 
-
-$output_seq_obj->add_SeqFeature(@features);
-
-
-my $timestamp = int (gettimeofday * 1000);
-#
-my $io = Bio::SeqIO->new(-format => "genbank", -file => ">public/output/GG_output_$timestamp.gb" );
-$io->write_seq($output_seq_obj);
-
-$self->render(text => "output/GG_output_$timestamp.gb");
+#   Render Out
+    $self->render(text => "output/out_$timestamp.gb");
 
 };
 

@@ -246,8 +246,8 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 //TODO EVERYTHING
 
         //$("#donut").hide();
-        $('#resultwrap').slideUp();
-
+        var resultWrap = $('#resultwrap');
+        resultWrap.slideUp();
 
         var vector = $scope.vector;
         var parts = $scope.gateParts;
@@ -258,7 +258,15 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         }
 
 
-        if (!parts || !parts.length || !parts.length > 0 || parts.length != $scope.partTypes.length) {
+        var test = parts.filter(function (item) {
+            return item === null;
+        });
+
+
+        if (!parts || !parts.length || !parts.length > 0 || parts.length != $scope.partTypes.length || !test > 0) {
+
+
+
             //TODO ERROR
             $scope.addAlert($scope.alertTypes.warning, 'Please make a selection of each part type');
             return;
@@ -267,16 +275,9 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
         var splitVector = vector.seq.split(vectorSplitter);
         if (splitVector && splitVector.length == 2) {
-            //good
-//            var tmppy = '';
-//            parts.forEach(function (part) {
-//                tmppy += '\n' + part.seq;
-//            });
-//            var whore = splitVector[0] + tmppy + '\n' + splitVector[1];
-//            $('#resultstring').text(whore);
 
 
-            $('#resultwrap').slideDown(400, function () {
+            resultWrap.slideDown(400, function () {
                 //$("#donut").show();
                 //$scope.renderDonut();
             });
@@ -288,7 +289,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         }
 
 
-        //        $('#resultwrap').show();
+        //        resultWrap.show();
 
         $http.post('/buildit', [vector, parts]).success(function (outputFile) {
             $scope.outputDownload = outputFile;
