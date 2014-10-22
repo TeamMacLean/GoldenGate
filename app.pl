@@ -78,10 +78,7 @@ post '/buildit' => sub {
         if($feat->primary_tag ne $partToReplace){
             print($feat->primary_tag,"\n");
             my $thisSeq = $feat->seq->seq();
-#            $fullSeq = $fullSeq . $thisSeq;
-
 #            my $end = $currentPosition+length($thisSeq);
-
             my $newFeat = new Bio::SeqFeature::Generic(-start => $feat->start+$seqDiff, -end => $feat->end+$seqDiff, -strand => $feat->strand, -primary_tag => $feat->primary_tag);
 #            $currentPosition = $end;
             push(@finalParts, $newFeat);
@@ -130,11 +127,9 @@ $seqDiff = length($seq) - (length($beforeBridgeSeq)+length($afterBridgeSeq));
         }
     }
 
-#    my $merged_seq = Bio::SeqUtils->cat(@finalParts);
-
     my $merged_seq = $beforeBridgeSeq . $afterBridgeSeq;
+    my $merged_seq = uc($merged_seq);
 
-#    my $output_seq_obj = Bio::Seq->new(-seq => $fullSeq, -display_id => "CustomPart" );
     my $output_seq_obj = Bio::Seq->new(-seq => $merged_seq, -display_id => "CustomPart" );
     $output_seq_obj->add_SeqFeature(@finalParts);
     my $timestamp = int (gettimeofday * 1000);
