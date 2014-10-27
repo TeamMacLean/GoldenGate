@@ -13,7 +13,7 @@
     <title>Golden Gate</title>
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/components/octicons/octicons/octicons.css" rel="stylesheet">
+    <link href="/components/chartist/libdist/chartist.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- [if lt IE 9] >
@@ -23,90 +23,64 @@
 
 </head>
 <body ng-app="goldenGate" ng-controller="partController">
-<div id="bodywrap">
-    <div id="main">
 
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs"
-                                                                       src="/gate2.png">
-                    </a>
-                </div>
-                <!--<span data-toggle="modal" data-target="#loadModal"-->
-                <!--class="mega-octicon octicon-cloud-download pull-right fake-button">-->
-                <!--</span>-->
-            </div>
-        </div>
-        <div id="headerwrap">
-            <div class="container">
-                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
-                </alert>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <!--THE MAGIC!-->
-                    <div ng-repeat="part in partsGroups">
-                        <div class="col-sm-{{getColSize()}}">
-                            <h3 class="partType">{{part.type}}</h3>
-                            <select id="{{part.type}}" class="form-control seq-selector"
-                                    ng-options="opt as opt.label for opt in part.parts" ng-change="checkCompat(this)" ng-model="opt">
-                                <option value="" selected>---</option>
-                            </select>
-                            <input type="text" class="form-control" ng-show="false">
-                        </div>
-                    </div>
-                </div>
-                <h3 class="partType">Vector</h3>
-                <select id="vec" class="form-control seq-selector"
-                        ng-options="vector as vector.file for vector in vectors" ng-model="vector">
-                    <option value="" selected>---</option>
-                </select>
-
-                <div class="row margin-top-md">
-                    <button class="btn btn-lg btn-default" id="buildit" ng-click="build()">BUILD IT</button>
-                </div>
-            </div>
-        </div>
-        <!-- /headerwrap -->
-        <div id="resultwrap">
-            <div class="container">
-                <!--<h2>TA DAH!</h2>-->
-
-                <!--<div id="canvas-holder">-->
-                    <!--<canvas id="donut" width="300" height="300"></canvas>-->
-                <!--</div>-->
-
-                <div>
-                    <a href="/{{outputDownload}}" target="_blank">
-                        <h1>
-                            Download
-                        </h1>
-                    </a>
-                </div>
-
-                <!--<h3 id="resultstring"></h3>-->
-
-                <!--<div class="row margin-top-md margin-btm-sm">-->
-                    <!--<button data-toggle="modal" data-target="#saveModal" class="btn btn-lg btn-default" id="saveit">SAVE-->
-                        <!--IT <span class="mega-octicon octicon-cloud-upload"></span></button>-->
-                <!--</div>-->
-            </div>
-        </div>
-        <!-- /resultwrap -->
-    </div>
-    <!-- main -->
-</div>
-<!-- body wrap -->
-<div id="footerwrap">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <p>
-            Made by <a href="http://twitter.com/biodevops"> Martin Page</a> at <a href="http://danmaclean.info">Team
-            MacLean</a>. Check out the code on <a
-                href="https://github.com/wookoouk/goldengate"><span
-                class="mega-octicon octicon-logo-github"></span></a>
-        </p>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/" onClick="window.location.reload()">
+                GOLDEN GATE. <img class="navbar-img hidden-xs" src="/gate2.png">
+            </a>
+        </div>
     </div>
+</div>
+<div id="headerwrap">
+    <div class="container">
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+        </alert>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!--THE MAGIC!-->
+            <div ng-repeat="part in partsGroups">
+                <div class="col-sm-{{getColSize()}}">
+                    <h3 class="partType">{{part.type}}</h3>
+                    <select id="{{part.type}}" class="form-control seq-selector"
+                            ng-options="opt as opt.label for opt in part.parts" ng-change="checkCompat(this)"
+                            ng-model="opt">
+                        <option value="" selected>---</option>
+                    </select>
+                    <input type="text" class="form-control" ng-show="false">
+                </div>
+            </div>
+        </div>
+        <h3 class="partType">Vector</h3>
+        <select id="vec" class="form-control seq-selector"
+                ng-options="vector as vector.file for vector in vectors" ng-model="vector">
+            <option value="" selected>---</option>
+        </select>
+
+        <div class="row margin-top-md">
+            <button class="btn btn-lg btn-default" id="buildit" ng-click="build()">BUILD IT</button>
+        </div>
+    </div>
+</div>
+
+<!-- /headerwrap -->
+<div id="resultwrap">
+
+    <div class="ct-chart ct-square" style="max-height:350px; overflow: hidden;"></div>
+    <a href="/{{outputDownload}}" target="_blank">
+        <button class="btn btn-lg btn-default" id="downloadit">Download</button>
+    </a>
+
+
+</div>
+<!-- /resultwrap -->
+<div class="footer">
+    <p>
+        Made by <a href="http://twitter.com/biodevops"> Martin Page</a> at <a href="http://danmaclean.info">Team
+        MacLean</a>. Check out the code on <a href="http://github.com/wookoouk/goldengate">GitHub</a>
+    </p>
 </div>
 <div class="modal fade" id="saveModal">
     <div class="modal-dialog">
@@ -122,9 +96,6 @@
                         <input type="text" ng-model="bridgeName" class="form-control" id="bridgename"
                                placeholder="Name your bridge">
                     </div>
-                    <!--<button type="submit" class="btn btn-lg btn-default center-block" data-dismiss="modal"-->
-                    <!--ng-click="saveBridge()">Save-->
-                    <!--</button>-->
                 </form>
             </div>
         </div>
@@ -133,32 +104,13 @@
     <!-- /.modal-dialog -->
 </div>
 
-<!-- /.modal -->
-<!--<div class="modal fade" id="loadModal">-->
-<!--<div class="modal-dialog">-->
-<!--<div class="modal-content">-->
-<!--<div class="modal-header">-->
-<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-<!--<h4 class="modal-title">LOAD A BRIDGE</h4>-->
-<!--</div>-->
-<!--<div class="modal-body">-->
-<!--<ul ng-repeat="savedBridge in savedBridges">-->
-<!--<a ng-click="setBridge(savedBridge)">{{savedBridge.name}}</a>-->
-<!--</ul>-->
-<!--</div>-->
-<!--</div>-->
-<!-- /.modal-content -->
-<!--</div>-->
-<!-- /.modal-dialog -->
-<!--</div>-->
-<!-- /.modal -->
 
 <script src="/components/jquery/dist/jquery.min.js"></script>
 <script src="/components/angular/angular.min.js"></script>
 <script src="/components/angular-route/angular-route.js"></script>
 <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<!--<script src="/components/chartjs/Chart.min.js"></script>-->
+<script src="/components/chartist/libdist/chartist.min.js"></script>
 <script src="/js/app.js"></script>
 <script src="/js/main.js"></script>
 </body>

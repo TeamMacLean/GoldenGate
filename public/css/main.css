@@ -1,32 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900);
 
-* {
-    margin: 0;
-    padding: 0px;
-}
-
-html, body {
-    height: 100%;
-}
-
 body {
     background: #007EB3;
-    /*background: #00b3fe;*/
-    margin: 0;
-    height: 100%;
     color: #384452;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-}
-
-#bodywrap {
-    min-height: 100%;
-}
-
-#main {
-    overflow: auto;
-    padding-bottom: 150px; /* this needs to be bigger than footer height*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -63,17 +42,17 @@ a {
     box-shadow: none;
 }
 
-::-moz-selection {
-    color: #fff;
-    text-shadow: none;
-    background: #2B2E31;
-}
+/*::-moz-selection {*/
+    /*color: #fff;*/
+    /*text-shadow: none;*/
+    /*background: #F1C40F;*/
+/*}*/
 
-::selection {
-    color: #fff;
-    text-shadow: none;
-    background: #2B2E31;
-}
+/*::selection {*/
+    /*color: #fff;*/
+    /*text-shadow: none;*/
+    /*background: #F1C40F;*/
+/*}*/
 
 .centered {
     text-align: center
@@ -93,17 +72,17 @@ a {
 }
 
 .navbar-header .navbar-brand {
-    color: white;
+    color: #ECF0F1;
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: white;
+    color: #ECF0F1;
     font-weight: 700;
     font-size: 12px;
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-    color: white;
+    color: #ECF0F1;
     background-color: transparent;
 }
 
@@ -122,7 +101,7 @@ a {
 
 #resultwrap {
     display: none;
-    background-color: white;
+    background-color: #ECF0F1;
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
@@ -134,41 +113,31 @@ a {
     margin-bottom: 20px;
 }
 
-#footerwrap {
-
-    position: relative;
-    margin-top: -150px; /* negative value of footer height */
-    height: 150px;
-    clear: both;
-
-    color: white;
-    background-color: #34495e;
+#mainsec {
+    /*color: #ECF0F1;*/
+    background-color: #00b3fe;
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
+    margin-top: 70px;
 }
 
-#footerwrap a {
+.footer {
+    /*height: 150px;*/
+    color: #ECF0F1;
+    /*background-color: #34495e;*/
+    /*padding-top: 50px;*/
+    /*padding-bottom: 50px;*/
+    text-align: center;
+}
+
+.footer a {
     color: #00b3fe;
     text-decoration: none;
 }
 
-#footerwrap p {
-    color: white;
-}
-
-#headerwrap h3, h5 {
-    color: white;
-    font-weight: 400;
-}
-
-#headerwrap h1 {
-    color: white;
-    margin-bottom: 25px;
-}
-
-#headerwrap .img-responsive {
-    margin: 0 auto;
+.footer p {
+    color: #ECF0F1;
 }
 
 .margin-top-sm {
@@ -212,8 +181,17 @@ a {
 }
 
 #buildit {
-    background: white;
+    background: #ECF0F1;
     color: #34495e;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+#downloadit {
+    margin: 32px;
+    background: #00b3fe;
+    color: #ECF0F1;
     font-family: 'Raleway', sans-serif;
     font-weight: 900;
     font-size: 25px;
@@ -221,10 +199,23 @@ a {
 
 #saveit {
     background: #00b3fe;
-    color: white;
+    color: #ECF0F1;
     font-family: 'Raleway', sans-serif;
     font-weight: 900;
     font-size: 25px;
+}
+
+.tooltipper {
+    position: absolute;
+    display: inline-block;
+    min-width: 5em;
+    padding: .5em;
+    background: #F4C63D;
+    color: #453D3F;
+    font-weight: 700;
+    text-align: center;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse {
@@ -232,15 +223,11 @@ a {
 }
 
 .navbar .mega-octicon {
-    color: white;
+    color: #ECF0F1;
     padding: 15px;
     line-height: 20px;
     height: 50px;
 }
-
-/*.navbar .mega-octicon:hover {*/
-/*color: #00b3fe;*/
-/*}*/
 
 .modal-header h4, .modal-header .h4 {
     color: #34495e;
@@ -249,7 +236,7 @@ a {
 
 #saveModal .btn {
     background: #00b3fe;
-    color: white;
+    color: #ECF0F1;
     font-family: 'Raleway', sans-serif;
     font-weight: 900;
     font-size: 25px;
@@ -478,10 +465,82 @@ a {
     margin-top: 70px;
 }
 
+.tagType {
+    background-color: #ECF0F1;
+    margin-bottom: 10px;
+    /*border: solid #222222 1px;*/
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .tagType h2 {
     color: #ECF0F1;
+    padding: 10px;
+    background-color: #2980B9;
+    margin: 0;
+    cursor: pointer;
 }
 
 .toggle-section {
     display: none;
+    padding-bottom: 10px;
+}
+
+.toggle-section a {
+    text-decoration: none;
+    color: #2980B9;
+}
+
+.toggle-section a:hover {
+    color: #34495E;
+}
+
+.caret {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.caret-active {
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+.ct-chart .ct-series.ct-series-a .ct-bar, .ct-chart .ct-series.ct-series-a .ct-line, .ct-chart .ct-series.ct-series-a .ct-point, .ct-chart .ct-series.ct-series-a .ct-slice.ct-donut {
+    stroke: #1ABC9C;
+}
+
+.ct-chart .ct-series.ct-series-b .ct-bar, .ct-chart .ct-series.ct-series-b .ct-line, .ct-chart .ct-series.ct-series-b .ct-point, .ct-chart .ct-series.ct-series-b .ct-slice.ct-donut {
+    stroke: #2ECC71;
+}
+
+.ct-chart .ct-series.ct-series-c .ct-bar, .ct-chart .ct-series.ct-series-c .ct-line, .ct-chart .ct-series.ct-series-c .ct-point, .ct-chart .ct-series.ct-series-c .ct-slice.ct-donut {
+    stroke: #3498DB;
+}
+
+.ct-chart .ct-series.ct-series-d .ct-bar, .ct-chart .ct-series.ct-series-d .ct-line, .ct-chart .ct-series.ct-series-d .ct-point, .ct-chart .ct-series.ct-series-d .ct-slice.ct-donut {
+    stroke: #9B59B6;
+}
+
+.ct-chart .ct-series.ct-series-e .ct-bar, .ct-chart .ct-series.ct-series-e .ct-line, .ct-chart .ct-series.ct-series-e .ct-point, .ct-chart .ct-series.ct-series-e .ct-slice.ct-donut {
+    stroke: #34495E;
+}
+
+.ct-chart .ct-series.ct-series-f .ct-bar, .ct-chart .ct-series.ct-series-f .ct-line, .ct-chart .ct-series.ct-series-f .ct-point, .ct-chart .ct-series.ct-series-f .ct-slice.ct-donut {
+    stroke: #F1C40F;
+}
+
+.ct-chart .ct-series.ct-series-g .ct-bar, .ct-chart .ct-series.ct-series-g .ct-line, .ct-chart .ct-series.ct-series-g .ct-point, .ct-chart .ct-series.ct-series-g .ct-slice.ct-donut {
+    stroke: #E67E22;
+}
+
+.ct-chart .ct-series.ct-series-h .ct-bar, .ct-chart .ct-series.ct-series-h .ct-line, .ct-chart .ct-series.ct-series-h .ct-point, .ct-chart .ct-series.ct-series-h .ct-slice.ct-donut {
+    stroke: #E74C3C;
 }

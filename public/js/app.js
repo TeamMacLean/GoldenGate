@@ -1,14 +1,14 @@
+//GoldenGate Angular app
 var app = angular.module('goldenGate', ['ui.bootstrap']);
-
 
 app.config(['$locationProvider', function ($locationProvider) {
     $locationProvider.html5Mode(true);
 }]);
 
+//Parts Controller
 app.controller('partController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     //TODO RE ORDER ALL THIS SHIT!
-    var myDoughnutChart;
     $scope.vector = {};
     $scope.notEnoughParts = false;
 
@@ -29,7 +29,6 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
     };
 
     var vectorSplitter = 'GGAGTGAGACCGCAGCTGGCACGACAGGTTTGCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGCCAAGCTTGCATGCCTGCAGGTCGACTCTAGAGGATCCCCGGGTACCGAGCTCGAATTCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACGGTCTCACGCT';
-
 //    make the scope aware of part groups
     $scope.partsGroups = {};
 
@@ -46,7 +45,14 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
     if (locationParts && locationParts.parts) {
         var parts = locationParts.parts.split(",");
         if (parts && parts.length && parts.length > 0) {
-            $scope.partTypes = parts;
+
+            var fixedParts = [];
+
+            parts.forEach(function (part) {
+                fixedParts.push(part.replace(" ", "+"));
+            });
+
+            $scope.partTypes = fixedParts;
         } else {
             $scope.cannotGetParts();
         }
@@ -57,14 +63,8 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 //    current gate parts
     $scope.gateParts = [];
 
-//    get part types from picker
-//    $scope.partTypes = ['orp', 'u5', 'sdc', '3u+ter'];
-
-//    data style
-//    [{type,[parts]},{type,[parts]},{type,[parts]}]
-
 //    fake part for when a user wants to add their own seq
-    var customPart = {_id: 0, label: 'USE YOUR OWN PART', overhang_l: '', overhang_r: '', seq: '', customPart: true};
+//    var customPart = {_id: 0, label: 'USE YOUR OWN PART', overhang_l: '', overhang_r: '', seq: '', customPart: true};
 
     $http.get('/vectors').success(function (vectors) {
         $scope.vectors = vectors;
@@ -77,6 +77,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
 //    get all available parts
         $http.get('/parts').success(function (parts) {
+            //console.log(parts);
             $scope.parts = parts;
 //        for each part type
             $scope.partTypes.forEach(function (pt, int) {
@@ -88,12 +89,12 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 //            $scope.partsGroups[int].parts.push(blankOption);
 //            for each part
                 var typeCount = 0;
+                //FIX ME bug where pt does not have a plut
                 $scope.parts.forEach(function (part) {
 
-//                get type from label
-//                    var type = part.label.split("-")[0];
                     var type = part.type;
 //                if the part type is same as the type
+//                    console.log(pt,type, pt.toUpperCase() == type.toUpperCase());
                     if (pt.toUpperCase() == type.toUpperCase()) {
 //                    push matching part into sub array
                         typeCount++;
@@ -161,9 +162,6 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 //        if the selector is blank/reset then it will not have any data bound to it
         if (currentPart) {
 
-            //if (currentPart.label == "Custom") {
-            //return;
-            //}
 
 //            is not far left
             if (!selector.$first) {
@@ -216,6 +214,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
             }
         }
 
+        //enable select option
         function enableOption(group, part) {
             var select = group.part.type.replace('+', '\\+');
             $("#" + select).find("option").filter(function () {
@@ -223,6 +222,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
             }).attr("disabled", false);
         }
 
+        //disable select option
         function disableOption(group, part) {
             var select = group.part.type.replace('+', '\\+');
             $("#" + select).find("option").filter(function () {
@@ -236,16 +236,15 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
     };
 
 
-//    remove alert from list + view
+    //remove alert from list + view
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };
 
-//    process the final output
+    //process the final output
     $scope.build = function () {
-//TODO EVERYTHING
 
-        //$("#donut").hide();
+        //$('.ct-chart').hide();
         var resultWrap = $('#resultwrap');
         resultWrap.slideUp();
 
@@ -266,7 +265,6 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         if (!parts || !parts.length || !parts.length > 0 || parts.length != $scope.partTypes.length || !test > 0) {
 
 
-
             //TODO ERROR
             $scope.addAlert($scope.alertTypes.warning, 'Please make a selection of each part type');
             return;
@@ -276,10 +274,8 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         var splitVector = vector.seq.split(vectorSplitter);
         if (splitVector && splitVector.length == 2) {
 
-
             resultWrap.slideDown(400, function () {
-                //$("#donut").show();
-                //$scope.renderDonut();
+                $scope.genChart();
             });
 
 
@@ -289,61 +285,14 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         }
 
 
-        //        resultWrap.show();
-
         $http.post('/buildit', [vector, parts]).success(function (outputFile) {
             $scope.outputDownload = outputFile;
 
-//            $scope.addAlert($scope.alertTypes.success, 'Got success.');
         }).error(function (response, code) {
             $scope.addAlert($scope.alertTypes.danger, 'http post error ' + code);
         });
     };
 
-    //function shuffle(o) { //v1.0
-    //    for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    //    return o;
-    //}
-
-//    $scope.renderDonut = function () {
-//        var data = [];
-//
-//        var graphPartCount = parts.length;
-//        var graphVecPercent = 60;
-//
-//        var graphPartPercent = (100 - graphVecPercent) / graphPartCount;
-//
-//        var chartColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c"];
-//        chartColors = shuffle(chartColors);
-//
-//        data.push(
-//            {
-//                value: graphVecPercent,
-//                color: chartColors[graphPartCount],
-//                highlight: "#FFC870",
-//                label: "Yellow",
-//                labelColor: 'white'
-//            }
-//        );
-//        parts.forEach(function (part, pos) {
-//            data.push(
-//                {
-//                    value: graphPartPercent, color: chartColors[pos], highlight: "#FFC870", label: graphPartPercent
-//                }
-//            );
-//        });
-//
-//        var ctx = document.getElementById("donut").getContext("2d");
-//        myDoughnutChart = new Chart(ctx).Doughnut(data, {responsive: true});
-//
-////        ctx.translate(0,0);
-////        ctx.rotate(5*Math.PI / 180);
-//
-//        ctx.translate(150, 150);
-//        ctx.rotate(72 * Math.PI / 180);
-//        ctx.translate(-150, -150);
-//
-//    };
 
     $scope.saveBridge = function () {
 
@@ -383,6 +332,103 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
             $scope.partTypes.push(type);
         });
 
+    };
+
+    //generate the donut chart
+    $scope.genChart = function () {
+
+        //current vector
+        var vector = $scope.vector;
+        //current parts
+        var parts = $scope.gateParts;
+
+        //vector should take up 60% of the chart
+        var vectorPercent = 60;
+        //sum of parts should take up 40% of the chart
+        var partsPercent = 40;
+        //one percent of 360 degrees
+        var percent = 360 / 100;
+        //offset the rotation of the chart to center it
+        var startAngle = -((partsPercent / 2) * percent);
+        var series = [];
+        var labels = [];
+        var partPercent = (partsPercent / parts.length) * percent;
+
+
+        //+++++++++++
+        //This is VERY brittle!
+
+        series.push(vectorPercent * percent);
+
+        parts.forEach(function (part) {
+            labels.push(part.label);
+            series.push(partPercent);
+        });
+
+        labels.push(vector.label);
+
+        labels.reverse();
+        series.reverse();
+
+        //+++++++++++
+
+        var chartWidth = 50;
+        var chartHoverWidth = 60;
+        var animationSpeed = 300; //lower is quicker
+
+        new Chartist.Pie('.ct-chart', {
+                series: series,
+                labels: labels
+            }, {
+                donut: true,
+                donutWidth: chartWidth,
+                startAngle: startAngle,
+                total: 360,
+                showLabel: false
+            }
+        );
+
+        //voodoo
+        var easeOutQuad = function (x, t, b, c, d) {
+            return -c * (t /= d) * (t - 2) + b;
+        };
+
+        //dom el of chart
+        var $chart = $('.ct-chart');
+
+        var $toolTip = $chart
+            .append('<div class="tooltipper"></div>')
+            .find('.tooltipper')
+            .hide();
+
+
+        //on mouse enter
+        $chart.on('mouseenter', '.ct-slice', function () {
+            var $point = $(this);
+            var position = $point.parent().index();
+            var seriesName = labels[position];
+
+            //if ($point.css('stroke-width') == chartWidth + 'px') {
+                $point.animate({'stroke-width': chartHoverWidth + 'px'}, animationSpeed, easeOutQuad);
+            //}
+
+            $toolTip.html(seriesName).show();
+        });
+
+        //on mouse leave
+        $chart.on('mouseleave', '.ct-slice', function () {
+            var $point = $(this);
+            $point.animate({'stroke-width': chartWidth + 'px'}, animationSpeed, easeOutQuad);
+            $toolTip.hide();
+        });
+
+        //on mouse move
+        $chart.on('mousemove', function (event) {
+            $toolTip.css({
+                left: event.offsetX - $toolTip.width() / 2 - 10,
+                top: event.offsetY - $toolTip.height() + 40
+            });
+        });
     };
 
 

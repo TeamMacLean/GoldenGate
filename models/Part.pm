@@ -48,15 +48,6 @@ sub new {
 
         $type = ( split( /_/,  basename($file) ))[1];
 
-#        my @type = split /-/ ,$label;
-#        p @type[0];
-
-
-#        print $label."\n";
-#        print $ohl."\n";
-#        print $ohr."\n";
-#        print $seq."\n";
-
         my $self = {
             _label => $label,
             _seq  => $seq,

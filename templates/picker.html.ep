@@ -13,7 +13,6 @@
     <title>Golden Gate</title>
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/components/octicons/octicons/octicons.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
 
     <!-- [if lt IE 9] >
@@ -30,38 +29,35 @@
             <a class="navbar-brand" href="/">GOLDEN GATE. <img class="navbar-img hidden-xs"
                                                                src="/gate2.png"></a>
         </div>
-        <!--<span data-toggle="modal" data-target="#loadModal"-->
-        <!--class="mega-octicon octicon-cloud-download pull-right fake-button">-->
-        <!--</span>-->
     </div>
 </div>
 
 <section id="mainsec" class="navmargin">
     <div class="container">
-        <h1 class="centered">Pick a Template</h1>
+        <!--<h1 class="centered">Pick a Template</h1>-->
         <!--row START-->
 
 
         <div class="tagType">
-            <h1>Simple</h1>
+            <h2>Simple <span class="caret"></span></h2>
 
             <div class="toggle-section">
 
                 <a href="/result?parts=PRO+5U,CDS1,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO+5U
                         CDS1
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
-                <a href="/result?parts=PRO+5U,CDS1,3U+Ter">
-                    <h2>
+                <a href="/result?parts=PRO,5U,CDS1,3U+Ter">
+                    <h3>
                         PRO
                         5U
                         CDS1
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
             </div>
@@ -69,85 +65,85 @@
         </div>
 
         <div class="tagType">
-            <h1>N terminal tags</h1>
+            <h2>N terminal tags <span class="caret"></span></h2>
 
             <div class="toggle-section">
 
                 <a href="/result?parts=PRO+5Uf,NT1,CDS1,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO+5Uf
                         NT1
                         CDS1
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO,5Uf,NT1,CDS1,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5Uf
                         NT1
                         CDS1
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
                 <a href="/result?parts=PRO,5U+NT1,CDS1,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5U+NT1
                         CDS1
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO+5U,NT2,CDS2,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO+5U
                         NT2
                         CDS2
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO,5U,NT2,CDS2,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5U
                         NT2
                         CDS2
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO+5Uf,NT1,NT2,CDS2,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO+5Uf
                         NT1
                         NT2
                         CDS2
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO,5U,NT1,NT2,CDS2,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5Uf
                         NT1
                         NT2
                         CDS2
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO,5U+NT1,NT2,CDS2,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5U+NT1
                         NT2
                         CDS2
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
             </div>
@@ -155,65 +151,65 @@
         </div>
 
         <div class="tagType">
-            <h1>C terminal tags</h1>
+            <h2>C terminal tags <span class="caret"></span></h2>
 
             <div class="toggle-section">
 
                 <a href="/result?parts=PRO+5U,CDS1ns,CT,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO+5U
                         CDS1ns
                         CT
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO,5U,CDS1ns,CT,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5U
                         CDS1ns
                         CT
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
             </div>
 
         </div>
         <div class="tagType">
-            <h1>N and C terminal tags</h1>
+            <h2>N and C terminal tags <span class="caret"></span></h2>
 
             <div class="toggle-section">
 
                 <a href="/result?parts=PRO+5Uf,NT1,CDS1ns,CT,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO+5Uf
                         NT1
                         CDS1ns
                         CT
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
 
                 <a href="/result?parts=PRO,5Uf,NT1,CDS1ns,CT,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5Uf
                         NT1
                         CDS1ns
                         CT
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
                 <a href="/result?parts=PRO,5U+NT,CDS1ns,CT,3U+Ter">
-                    <h2>
+                    <h3>
                         PRO
                         5U+NT1
                         CDS1ns
                         CT
                         3U+Ter
-                    </h2>
+                    </h3>
                 </a>
             </div>
 

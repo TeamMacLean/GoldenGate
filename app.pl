@@ -64,71 +64,101 @@ post '/buildit' => sub {
 
     my $beforeBridgeSeq;
     my $afterBridgeSeq;
-    my $seqDiff = 0;
 
     my @features = $seq_object_vector->get_SeqFeatures(); # just top level
 
     my $seq = $seq_object_vector->seq;
 
+    my $beforeBridgeLength;
+
+    my $originalSeqLength = length($seq);
+
+    my $bridgeLength = 0;
+
+    my $offsetFromSplit = 0;
 
 #    my $currentPosition = 0;
 
     foreach my $feat ( @features ) {
 
         if($feat->primary_tag ne $partToReplace){
-            print($feat->primary_tag,"\n");
             my $thisSeq = $feat->seq->seq();
-#            my $end = $currentPosition+length($thisSeq);
-            my $newFeat = new Bio::SeqFeature::Generic(-start => $feat->start+$seqDiff, -end => $feat->end+$seqDiff, -strand => $feat->strand, -primary_tag => $feat->primary_tag);
-#            $currentPosition = $end;
-            push(@finalParts, $newFeat);
+
+            my $start = $feat->start+$offsetFromSplit;
+            my $end = $feat->end+$offsetFromSplit;
+
+            if (defined($beforeBridgeLength) && defined($offsetFromSplit)){
+                unless ($start > $beforeBridgeLength && $start < $beforeBridgeLength+$offsetFromSplit || $end > $beforeBridgeLength && $end < $beforeBridgeLength+$offsetFromSplit) {
+
+                    my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end, -strand => $feat->strand, -primary_tag => $feat->primary_tag);
+
+#                   TODO get tags
+                    foreach my $tag ($feat->get_all_tags) {
+                        my @fullTag = $feat->get_tag_values($tag);
+                        $newFeat->add_tag_value($tag, $fullTag[0]);
+                    }
+
+                    push(@finalParts, $newFeat);
+                }
+            }
         } else {
-#        THIS IS PART TO REPLACE
-#        ADD BRIDGE HERE!
 
+            if (!defined($beforeBridgeLength)){
+            #only do this once
 
+                $beforeBridgeSeq = substr($seq, 0, ($feat->start)-1);
+                $afterBridgeSeq = substr($seq, $feat->end, length($seq)-1);
 
-#       SPLIT VECTOR
+                $beforeBridgeLength = length($beforeBridgeSeq);
 
-$beforeBridgeSeq = substr($seq, 0, $feat->start);
-$afterBridgeSeq = substr($seq, $feat->end, length($seq));
+                $offsetFromSplit = $beforeBridgeLength;
 
-$seqDiff = length($seq) - (length($beforeBridgeSeq)+length($afterBridgeSeq));
+            }
 
-#            $currentPosition = $feat->start;
+            my @ggParts;
 
             foreach my $realPart (@$parts) {
-                my $ggFeature = undef;
                 my $seqio_object_part = Bio::SeqIO->new(-file => $partsFolder."/".$realPart->{file} );
                 my $seq_object_part = $seqio_object_part->next_seq;
 
                 for my $feat_object ($seq_object_part->get_SeqFeatures) {
                     if($feat_object->primary_tag eq $featureName){
-                        $ggFeature = $feat_object;
+                        push(@ggParts, $feat_object);
                         last;
                      }
                 }
+            }
+                my $ggPartsLength = scalar @ggParts;
+                my $i = 1;
+                foreach my $part (@ggParts) {
+                    my $thisSeq = $part->seq->seq();
 
-                if (defined($ggFeature)){
-                    my $thisSeq = $ggFeature->seq->seq();
+                    if($i < $ggPartsLength){
+                    #needs over hangs removed
+                        $thisSeq = substr($thisSeq, 0, length($thisSeq)-4);
+                    } else {
+                    #doesnt need over hangs removed
+                        $thisSeq = substr($thisSeq, 0, length($thisSeq));
+                    }
+
+                    $offsetFromSplit = $offsetFromSplit+length($thisSeq);
+
+                    $i = $i+1;
+
                     $beforeBridgeSeq = $beforeBridgeSeq . $thisSeq;
 
                     my $start = index($beforeBridgeSeq, $thisSeq);
                     my $end = $start+length($thisSeq);
-                    print("start: ",$start, "\n");
-                    print("end: ",$end, "\n");
 
-                    my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end, -strand => 1, -primary_tag => $realPart->{label});
+                    #TODO get label
+                    my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end, -strand => 1, -primary_tag => 'part');
+
                     push (@finalParts, $newFeat);
-
-
                 }
-            }
         }
     }
 
     my $merged_seq = $beforeBridgeSeq . $afterBridgeSeq;
-    my $merged_seq = uc($merged_seq);
 
     my $output_seq_obj = Bio::Seq->new(-seq => $merged_seq, -display_id => "CustomPart" );
     $output_seq_obj->add_SeqFeature(@finalParts);
@@ -140,10 +170,6 @@ $seqDiff = length($seq) - (length($beforeBridgeSeq)+length($afterBridgeSeq));
     $self->render(text => "output/out_$timestamp.gb");
 
 };
-
-
-
-
 
 
 
