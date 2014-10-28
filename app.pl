@@ -44,54 +44,51 @@ get '/vectors' => sub {
 post '/buildit' => sub {
     my $self = shift;
     my $request_object = $self->req;
-
     my $update = Mojo::JSON->new->decode( $self->req->body );
-
-
     my $partToReplace = 'Golden_Gate_Cas';
-
 #    get vector from req
     my $vector = $update->[0];
 #    get parts from req
     my $parts = $update->[1];
-
 #    get io of vector
     my $seqio_object_vector = Bio::SeqIO->new(-file => $vectorsFolder."/".$vector->{file} );
-
     my $seq_object_vector = $seqio_object_vector->next_seq;
-
     my @finalParts;
-
     my $beforeBridgeSeq;
     my $afterBridgeSeq;
-
     my @features = $seq_object_vector->get_SeqFeatures(); # just top level
-
     my $seq = $seq_object_vector->seq;
-
     my $beforeBridgeLength;
-
     my $originalSeqLength = length($seq);
-
     my $bridgeLength = 0;
+    my $splitDifference = 0;
 
-    my $offsetFromSplit = 0;
+    my $ggStart;
+    my $ggEnd;
 
-#    my $currentPosition = 0;
 
+
+#all features
     foreach my $feat ( @features ) {
 
         if($feat->primary_tag ne $partToReplace){
             my $thisSeq = $feat->seq->seq();
 
-            my $start = $feat->start+$offsetFromSplit;
-            my $end = $feat->end+$offsetFromSplit;
+            my $start = $feat->start+$splitDifference;
+            my $end = $feat->end+$splitDifference;
 
-            if (defined($beforeBridgeLength) && defined($offsetFromSplit)){
-                unless ($start > $beforeBridgeLength && $start < $beforeBridgeLength+$offsetFromSplit || $end > $beforeBridgeLength && $end < $beforeBridgeLength+$offsetFromSplit) {
+            my $oldStart = $feat->start;
+            my $oldEnd = $feat->end;
 
+            print($start, "\n");
+            print($thisSeq, "\n");
+
+            if (defined($ggStart) && defined($ggEnd)){
+
+
+#               if its within range of a removed feature
+                unless ($oldStart > $ggEnd && $oldStart < $ggStart || $oldEnd > $ggStart && $oldEnd < $ggEnd) {
                     my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end, -strand => $feat->strand, -primary_tag => $feat->primary_tag);
-
 #                   TODO get tags
                     foreach my $tag ($feat->get_all_tags) {
                         my @fullTag = $feat->get_tag_values($tag);
@@ -103,19 +100,20 @@ post '/buildit' => sub {
             }
         } else {
 
-            if (!defined($beforeBridgeLength)){
-            #only do this once
+$ggStart = $feat->start;
+$ggEnd = $feat->end;
 
-                $beforeBridgeSeq = substr($seq, 0, ($feat->start)-1);
-                $afterBridgeSeq = substr($seq, $feat->end, length($seq)-1);
+print($ggStart, "\n");
 
-                $beforeBridgeLength = length($beforeBridgeSeq);
+            my $removedLength = length($feat->seq);
+            my $newLength = 0;
 
-                $offsetFromSplit = $beforeBridgeLength;
 
-            }
-
+            $beforeBridgeSeq = substr($seq, 0, ($feat->start)-1);
+            $afterBridgeSeq = substr($seq, $feat->end, length($seq)-1);
+            $beforeBridgeLength = length($beforeBridgeSeq);
             my @ggParts;
+
 
             foreach my $realPart (@$parts) {
                 my $seqio_object_part = Bio::SeqIO->new(-file => $partsFolder."/".$realPart->{file} );
@@ -128,39 +126,45 @@ post '/buildit' => sub {
                      }
                 }
             }
-                my $ggPartsLength = scalar @ggParts;
-                my $i = 1;
-                foreach my $part (@ggParts) {
-                    my $thisSeq = $part->seq->seq();
+            my $ggPartsLength = scalar @ggParts;
+            my $i = 1;
+            foreach my $part (@ggParts) {
+                my $thisSeq = $part->seq->seq();
+                $newLength = $newLength+length($thisSeq);
 
-                    if($i < $ggPartsLength){
-                    #needs over hangs removed
-                        $thisSeq = substr($thisSeq, 0, length($thisSeq)-4);
-                    } else {
-                    #doesnt need over hangs removed
-                        $thisSeq = substr($thisSeq, 0, length($thisSeq));
-                    }
+#                This get the overlap correct
+                my $overhangOffset = 0;
 
-                    $offsetFromSplit = $offsetFromSplit+length($thisSeq);
-
-                    $i = $i+1;
-
-                    $beforeBridgeSeq = $beforeBridgeSeq . $thisSeq;
-
-                    my $start = index($beforeBridgeSeq, $thisSeq);
-                    my $end = $start+length($thisSeq);
-
-                    #TODO get label
-                    my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end, -strand => 1, -primary_tag => 'part');
-
-                    push (@finalParts, $newFeat);
+                if($i < $ggPartsLength){
+                #needs over hangs removed
+                    $thisSeq = substr($thisSeq, 0, length($thisSeq)-4);
+                    $overhangOffset = 4;
+                } else {
+                #doesnt need over hangs removed
+                    $thisSeq = substr($thisSeq, 0, length($thisSeq));
                 }
+
+
+                $i = $i+1;
+
+                $beforeBridgeSeq = $beforeBridgeSeq . $thisSeq;
+
+                my $start = index($beforeBridgeSeq, $thisSeq);
+                my $end = $start+length($thisSeq);
+
+                #TODO get label
+                my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end+$overhangOffset, -strand => 1, -primary_tag => $feat->primary_tag);
+
+                push (@finalParts, $newFeat);
+            }
+            $splitDifference = $newLength - $removedLength;
         }
     }
 
     my $merged_seq = $beforeBridgeSeq . $afterBridgeSeq;
 
     my $output_seq_obj = Bio::Seq->new(-seq => $merged_seq, -display_id => "CustomPart" );
+
     $output_seq_obj->add_SeqFeature(@finalParts);
     my $timestamp = int (gettimeofday * 1000);
     my $io = Bio::SeqIO->new(-format => "genbank", -file => ">public/output/out_$timestamp.gb" );
@@ -168,7 +172,6 @@ post '/buildit' => sub {
 
 #   Render Out
     $self->render(text => "output/out_$timestamp.gb");
-
 };
 
 
