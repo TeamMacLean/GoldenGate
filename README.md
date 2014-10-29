@@ -1,6 +1,10 @@
 # Golden Gate Assembly Tool
 
+[![Build Status](https://travis-ci.org/wookoouk/GoldenGate.svg)](https://travis-ci.org/wookoouk/GoldenGate)
+
 <img src="https://raw.githubusercontent.com/wookoouk/GoldenGate/master/public/gate2.png">
+
+>A tool for SynBio
 
 Golden Gate is a tool developed by Martin Page of [Team Maclean](http://danmaclean.info) for SynBio of [The Sainsbury Laboratory](http://tsl.ac.uk).
 The tool was designed to work with the data found [here](https://github.com/TSLSynBio/Golden-Gate-Data/)  but can work with any data that follows the same annotation style.
