@@ -10,10 +10,12 @@ Depends on:
 * Perl
 * MongoDB
 
+Install Bower
 ```sh
 $ npm install -f bower
 ```
 
+Install Perl modules
 ```sh
 $ curl -L cpanmin.us | perl - Mojolicious
 $ curl -L cpanmin.us | perl - -n Mango
