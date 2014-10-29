@@ -1,6 +1,6 @@
 # Golden Gate Assembly Tool
 
-<img align="right" src="https://raw.githubusercontent.com/wookoouk/GoldenGate/master/public/gate2.png">
+<img src="https://raw.githubusercontent.com/wookoouk/GoldenGate/master/public/gate2.png">
 
 > A tool for SynBio
 
@@ -25,6 +25,16 @@ $ curl -L cpanmin.us | perl - -n Mango
 $ curl -L cpanmin.us | perl - -n Data::Printer
 $ curl -L cpanmin.us | perl - -n JSON
 $ curl -L cpanmin.us | perl - -n Bio::SeqIO
+```
+
+Install web components
+```sh
+$ bower install
+```
+
+Start the app
+```sh
+$ bin/start
 ```
 
 https://registry.hub.docker.com/u/wookoouk/goldengate/
