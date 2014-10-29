@@ -29,4 +29,4 @@ RUN apt-get -y update
 RUN apt-get -y install mongodb-10gen
 
 # Expose server port
-EXPOSE 6379
+EXPOSE 80
