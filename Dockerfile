@@ -13,7 +13,7 @@ RUN apt-get install -y nodejs
 RUN npm install -f bower
 
 # Get Build Essentials
-RUN apt-get update && apt-get install build-essential
+RUN apt-get update && apt-get install -y build-essential
 
 # Install Perl requirements
 #RUN sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
