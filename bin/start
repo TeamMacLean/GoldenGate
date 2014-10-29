@@ -1,2 +1,0 @@
-#!/bin/bash
-morbo -l 'http://*:80' app.pl

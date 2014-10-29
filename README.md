@@ -42,7 +42,7 @@ $ git clone https://github.com/TSLSynBio/Golden-Gate-Data.git
 
 Start the app
 ```sh
-$ bin/start
+$ perl goldengate.pl daemon -m production
 ```
 
 
