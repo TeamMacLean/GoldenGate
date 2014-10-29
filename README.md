@@ -22,7 +22,7 @@ $ npm install -f bower
 
 Install Perl modules
 ```sh
-$ curl -L cpanmin.us | perl - Mojolicious
+$ curl -L cpanmin.us | perl - -n Mojolicious
 $ curl -L cpanmin.us | perl - -n Mango
 $ curl -L cpanmin.us | perl - -n Data::Printer
 $ curl -L cpanmin.us | perl - -n JSON
