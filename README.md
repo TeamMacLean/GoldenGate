@@ -51,7 +51,6 @@ Start the app
 $ perl goldengate.pl daemon -m production
 ```
 
-
 ## Docker
 To test the app via docker
 ```sh
