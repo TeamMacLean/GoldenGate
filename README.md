@@ -1,6 +1,6 @@
 # Golden Gate Assembly Tool
 
-<img align="right" width="200" src="https://raw.githubusercontent.com/wookoouk/GoldenGate/master/public/gate2.png">
+<img align="right" src="https://raw.githubusercontent.com/wookoouk/GoldenGate/master/public/gate2.png">
 
 > A tool for SynBio
 
