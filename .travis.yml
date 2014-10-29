@@ -7,4 +7,4 @@ perl:
   - "5.12"
   - "5.10"
 install:
-  - "cpan Mojolicious && cpan Mango && cpan Data::Printer && cpan JSON && cpan Bio::SeqIO"
+  - "cpanm --quiet --notest < dependencies.txt"

@@ -57,5 +57,6 @@ To test the app via docker
 $ docker pull wookoouk/goldengate
 $ sudo docker run --name goldengate -d wookoouk/goldengate
 ```
+
 [More info about this Docker container](https://registry.hub.docker.com/u/wookoouk/goldengate/)
 
