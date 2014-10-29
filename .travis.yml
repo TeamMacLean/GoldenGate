@@ -7,4 +7,4 @@ perl:
   - "5.12"
   - "5.10"
 install:
-  - "cpanm Mojolicious && cpanm Mango && cpanm Data::Printer && cpanm JSON && cpanm Bio::SeqIO"
+  - "cpanm -n Mojolicious && cpanm -n Mango && cpanm -n Data::Printer && cpanm -n JSON && cpanm -n Bio::SeqIO"
