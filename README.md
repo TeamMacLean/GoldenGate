@@ -41,4 +41,13 @@ Start the app
 $ bin/start
 ```
 
+
+## Docker
+To test the app via docker
+```sh
+$ docker pull wookoouk/goldengate
+$ sudo docker run --name goldengate -d wookoouk/goldengate
+```
+More info about the docker container can be found here:
 https://registry.hub.docker.com/u/wookoouk/goldengate/
+
