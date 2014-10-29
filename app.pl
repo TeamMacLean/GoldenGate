@@ -80,8 +80,8 @@ post '/buildit' => sub {
             my $oldStart = $feat->start;
             my $oldEnd = $feat->end;
 
-            print($start, "\n");
-            print($thisSeq, "\n");
+#            print($start, "\n");
+#            print($thisSeq, "\n");
 
             if (defined($ggStart) && defined($ggEnd)){
 
@@ -103,15 +103,17 @@ post '/buildit' => sub {
 $ggStart = $feat->start;
 $ggEnd = $feat->end;
 
-print($ggStart, "\n");
+#print($ggStart, "\n");
 
-            my $removedLength = length($feat->seq);
             my $newLength = 0;
 
 
             $beforeBridgeSeq = substr($seq, 0, ($feat->start)-1);
             $afterBridgeSeq = substr($seq, $feat->end, length($seq)-1);
+
+            my $removedLength = (length($seq) - length($beforeBridgeSeq)) - length($afterBridgeSeq);
             $beforeBridgeLength = length($beforeBridgeSeq);
+
             my @ggParts;
 
 
@@ -157,7 +159,12 @@ print($ggStart, "\n");
 
                 push (@finalParts, $newFeat);
             }
+
             $splitDifference = $newLength - $removedLength;
+
+            print($removedLength, "\n");
+                        print($newLength, "\n");
+                        print($splitDifference, "\n");
         }
     }
 
