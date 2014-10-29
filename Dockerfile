@@ -16,7 +16,8 @@ RUN npm install -f bower
 RUN apt-get update && apt-get install build-essential
 
 # Install Perl requirements
-RUN sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
+#RUN sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
+RUN curl -L cpanmin.us | perl - Mojolicious
 RUN curl -L cpanmin.us | perl - -n Mango
 RUN curl -L cpanmin.us | perl - -n Data::Printer
 RUN curl -L cpanmin.us | perl - -n JSON
