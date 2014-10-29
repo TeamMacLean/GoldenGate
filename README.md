@@ -30,6 +30,12 @@ Install web components
 $ bower install
 ```
 
+Checkout data
+```sh
+$ cd data
+$ git clone https://github.com/TSLSynBio/Golden-Gate-Data.git
+```
+
 Start the app
 ```sh
 $ bin/start
