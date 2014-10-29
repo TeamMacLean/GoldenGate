@@ -9,6 +9,14 @@
 Golden Gate is a tool developed by Martin Page of [Team Maclean](http://danmaclean.info) for SynBio of [The Sainsbury Laboratory](http://tsl.ac.uk).
 The tool was designed to work with the data found [here](https://github.com/TSLSynBio/Golden-Gate-Data/)  but can work with any data that follows the same annotation style.
 
+Versions of perl tested:
+* "5.20"
+* "5.18"
+* "5.16"
+* "5.14"
+* "5.12"
+* "5.10"
+
 ## Install
 Depends on:
 * NodeJS
