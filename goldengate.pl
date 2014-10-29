@@ -208,4 +208,4 @@ get '/loadbridge' => sub {
 };
 
 
-app->start;
+app->start();
