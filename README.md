@@ -13,14 +13,12 @@ The tool was designed to work with the data found [here](https://github.com/TSLS
 Depends on:
 * NodeJS
 * Perl
-Versions of perl tested:
-* "5.20"
-* "5.18"
-* "5.16"
-* "5.14"
-* "5.12"
-* "5.10"
-
+  * "5.20"
+  * "5.18"
+  * "5.16"
+  * "5.14"
+  * "5.12"
+  * "5.10"
 * MongoDB
 
 Install Bower
