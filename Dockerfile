@@ -9,16 +9,14 @@ RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt
 RUN apt-get update
 RUN apt-get install -y nodejs
 
+RUN npm install -f bower
+
 # Get Build Essentials
 RUN apt-get update && apt-get install build-essential
 
 # Install Perl requirements
-#RUN sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
-RUN curl -L cpanmin.us | perl - Mojolicious
+RUN sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
 RUN curl -L cpanmin.us | perl - -n Mango
 RUN curl -L cpanmin.us | perl - -n Data::Printer
 RUN curl -L cpanmin.us | perl - -n JSON
 RUN curl -L cpanmin.us | perl - -n Bio::SeqIO
-
-RUN export PATH=$PATH:~/perl5/bin/
-RUN export PERL5LIB=$PERL5LIB:~/perl5/lib/perl5/
