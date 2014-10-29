@@ -4,6 +4,9 @@
 
 > A tool for SynBio
 
+Golden Gate is a tool developed by Martin Page of Team Maclean for SynBio (The Sainsbury Laboratory).
+The tool was designed to work with the data found here https://github.com/TSLSynBio/Golden-Gate-Data/ but can work with any data that follows the same annotation style.
+
 ## Install
 Depends on:
 * NodeJS
