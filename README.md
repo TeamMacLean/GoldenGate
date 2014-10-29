@@ -11,7 +11,6 @@ The tool was designed to work with the data found [here](https://github.com/TSLS
 
 ## Install
 Depends on:
-* NodeJS
 * Perl
   * "5.20"
   * "5.18"
@@ -19,6 +18,7 @@ Depends on:
   * "5.14"
   * "5.12"
   * "5.10"
+* NodeJS
 * MongoDB
 
 Install Bower
