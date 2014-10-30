@@ -4,8 +4,3 @@ public/components/
 public/output/*.gb
 data/
 log/*.log
-*.old
-Makefile
-blib/
-MYMETA.*
-pm_to_blib
