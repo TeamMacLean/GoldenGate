@@ -29,7 +29,7 @@ $ npm install -f bower
 
 Install Perl modules
 ```sh
-$ cpanm -n --installdeps .
+$ cpanm --installdeps .
 ```
 
 Install web components
