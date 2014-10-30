@@ -20,6 +20,7 @@ Depends on:
   * "5.10"
 * NodeJS
 * MongoDB
+* CpanM
 
 Install Bower
 ```sh
@@ -28,11 +29,7 @@ $ npm install -f bower
 
 Install Perl modules
 ```sh
-$ curl -L cpanmin.us | perl - -n Mojolicious
-$ curl -L cpanmin.us | perl - -n Mango
-$ curl -L cpanmin.us | perl - -n Data::Printer
-$ curl -L cpanmin.us | perl - -n JSON
-$ curl -L cpanmin.us | perl - -n Bio::SeqIO
+$ cpanm -n --installdeps .
 ```
 
 Install web components
