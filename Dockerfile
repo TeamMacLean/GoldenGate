@@ -9,8 +9,10 @@ RUN add-apt-repository ppa:chris-lea/node.js
 RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y nodejs
-
 RUN npm install -g bower
+
+# Install git (required by a bower dep)
+RUN apt-get install git
 
 # Get Build Essentials
 RUN apt-get update && apt-get install -y build-essential
