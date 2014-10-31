@@ -10,7 +10,7 @@ RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt
 RUN apt-get update
 RUN apt-get install -y nodejs
 
-RUN npm install -g bower
+RUN npm install -g bower --allow-root
 
 # Get Build Essentials
 RUN apt-get update && apt-get install -y build-essential
