@@ -11,7 +11,7 @@ RUN apt-get install -y nodejs
 RUN npm install -g bower
 
 # Install git (required by a bower dep)
-RUN apt-get install git
+RUN apt-get install -y git
 
 # Get Build Essentials
 RUN apt-get update && apt-get install -y build-essential
