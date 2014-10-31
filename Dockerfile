@@ -1,7 +1,6 @@
 FROM ubuntu
 
-MAINTAINER Martin Page <wookoouk@gmail.com>
-
+MAINTAINER Martin Page
 # Get NodeJS + Bower
 RUN apt-get update
 RUN apt-get install -y software-properties-common python-software-properties python
