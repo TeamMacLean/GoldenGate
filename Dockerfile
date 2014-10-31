@@ -30,7 +30,7 @@ RUN apt-get -y update
 RUN apt-get -y install mongodb-10gen
 
 ADD . /var/www
-RUN cd /var/www ; bower install --config.interactive=false --allow-root option
+RUN cd /var/www ; bower install --config.interactive=false --allow-root
 
 # Expose server port
 EXPOSE 80
