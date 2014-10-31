@@ -10,7 +10,7 @@ RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt
 RUN apt-get update
 RUN apt-get install -y nodejs
 
-RUN npm install -g bower --allow-root
+RUN npm install -g bower
 
 # Get Build Essentials
 RUN apt-get update && apt-get install -y build-essential
@@ -29,7 +29,7 @@ RUN apt-get -y update
 RUN apt-get -y install mongodb-10gen
 
 ADD . /var/www
-RUN cd /var/www ; bower install --config.interactive=false
+RUN cd /var/www ; bower install --config.interactive=false --allow-root option
 
 # Expose server port
 EXPOSE 80
