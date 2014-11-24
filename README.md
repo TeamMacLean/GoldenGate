@@ -24,7 +24,7 @@ Depends on:
 
 Install Bower
 ```sh
-$ npm install -f bower
+$ npm install -g bower
 ```
 
 Install Perl modules
