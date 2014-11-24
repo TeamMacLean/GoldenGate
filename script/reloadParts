@@ -13,8 +13,11 @@ use Part;
 my $mango = Mango->new('mongodb://localhost:27017');
 my $db = $mango->db('goldengate');
 my $collection = $db->collection('parts');
-$collection->drop;
 
+if($collection->find_one({})){
+  print('dropping old', "\n");
+  $collection->drop;
+}
 
 # list filed in parts folder
 my $dir = $partsFolder;
