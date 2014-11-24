@@ -44,7 +44,7 @@ $ git clone https://github.com/TSLSynBio/Golden-Gate-Data.git data
 
 Start the app
 ```sh
-$ perl goldengate.pl daemon -m production
+$ perl GoldenGate.pl daemon -m production
 ```
 
 ## Docker
