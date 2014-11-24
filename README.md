@@ -39,8 +39,7 @@ $ bower install
 
 Checkout data
 ```sh
-$ cd data
-$ git clone https://github.com/TSLSynBio/Golden-Gate-Data.git
+$ git clone https://github.com/TSLSynBio/Golden-Gate-Data.git data
 ```
 
 Start the app
