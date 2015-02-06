@@ -33,189 +33,329 @@
 </div>
 
 <section id="mainsec" class="navmargin">
-    <div class="container">
-        <!--<h1 class="centered">Pick a Template</h1>-->
-        <!--row START-->
+<div class="container">
+<!--<h1 class="centered">Pick a Template</h1>-->
+<!--row START-->
 
 
-        <div class="tagType">
-            <h2>Simple <span class="caret"></span></h2>
+<div class="tagType">
+    <h2>Simple <span class="caret"></span></h2>
 
-            <div class="toggle-section">
+    <div class="toggle-section">
 
-                <a href="/result?parts=PRO+5U,CDS1,3U+Ter">
-                    <h3>
-                        PRO+5U
-                        CDS1
-                        3U+Ter
-                    </h3>
-                </a>
+        <a href="/result?parts=PRO+5U,CDS1,3U+Ter">
+            <h3>
+                        <span class="pro-fiveu">
+                            PRO+5U
+                        </span>
+                        <span class="cdsone">
+                            CDS1
+                        </span>
+                        <span class="threeu-ter">
+                            3U+Ter
+                        </span>
+            </h3>
+        </a>
 
-                <a href="/result?parts=PRO,5U,CDS1,3U+Ter">
-                    <h3>
+        <a href="/result?parts=PRO,5U,CDS1,3U+Ter">
+            <h3>
+                    <span class="pro">
                         PRO
+                        </span>
+                        <span class="fiveu">
                         5U
+                        </span>
+                        <span class="cdsone">
                         CDS1
+                            </span>
+                        <span class="threeu-ter">
                         3U+Ter
-                    </h3>
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="tagType">
-            <h2>N terminal tags <span class="caret"></span></h2>
-
-            <div class="toggle-section">
-
-                <a href="/result?parts=PRO+5Uf,NT1,CDS1,3U+Ter">
-                    <h3>
-                        PRO+5Uf
-                        NT1
-                        CDS1
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO,5Uf,NT1,CDS1,3U+Ter">
-                    <h3>
-                        PRO
-                        5Uf
-                        NT1
-                        CDS1
-                        3U+Ter
-                    </h3>
-                </a>
-                <a href="/result?parts=PRO,5U+NT1,CDS1,3U+Ter">
-                    <h3>
-                        PRO
-                        5U+NT1
-                        CDS1
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO+5U,NT2,CDS2,3U+Ter">
-                    <h3>
-                        PRO+5U
-                        NT2
-                        CDS2
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO,5U,NT2,CDS2,3U+Ter">
-                    <h3>
-                        PRO
-                        5U
-                        NT2
-                        CDS2
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO+5Uf,NT1,NT2,CDS2,3U+Ter">
-                    <h3>
-                        PRO+5Uf
-                        NT1
-                        NT2
-                        CDS2
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO,5U,NT1,NT2,CDS2,3U+Ter">
-                    <h3>
-                        PRO
-                        5Uf
-                        NT1
-                        NT2
-                        CDS2
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO,5U+NT1,NT2,CDS2,3U+Ter">
-                    <h3>
-                        PRO
-                        5U+NT1
-                        NT2
-                        CDS2
-                        3U+Ter
-                    </h3>
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="tagType">
-            <h2>C terminal tags <span class="caret"></span></h2>
-
-            <div class="toggle-section">
-
-                <a href="/result?parts=PRO+5U,CDS1ns,CT,3U+Ter">
-                    <h3>
-                        PRO+5U
-                        CDS1ns
-                        CT
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO,5U,CDS1ns,CT,3U+Ter">
-                    <h3>
-                        PRO
-                        5U
-                        CDS1ns
-                        CT
-                        3U+Ter
-                    </h3>
-                </a>
-
-            </div>
-
-        </div>
-        <div class="tagType">
-            <h2>N and C terminal tags <span class="caret"></span></h2>
-
-            <div class="toggle-section">
-
-                <a href="/result?parts=PRO+5Uf,NT1,CDS1ns,CT,3U+Ter">
-                    <h3>
-                        PRO+5Uf
-                        NT1
-                        CDS1ns
-                        CT
-                        3U+Ter
-                    </h3>
-                </a>
-
-                <a href="/result?parts=PRO,5Uf,NT1,CDS1ns,CT,3U+Ter">
-                    <h3>
-                        PRO
-                        5Uf
-                        NT1
-                        CDS1ns
-                        CT
-                        3U+Ter
-                    </h3>
-                </a>
-                <a href="/result?parts=PRO,5U+NT,CDS1ns,CT,3U+Ter">
-                    <h3>
-                        PRO
-                        5U+NT1
-                        CDS1ns
-                        CT
-                        3U+Ter
-                    </h3>
-                </a>
-            </div>
-
-        </div>
+                        </span>
+            </h3>
+        </a>
 
     </div>
+
+</div>
+
+<div class="tagType">
+    <h2>N terminal tags <span class="caret"></span></h2>
+
+    <div class="toggle-section">
+
+        <a href="/result?parts=PRO+5Uf,NT1,CDS1,3U+Ter">
+            <h3>
+                        <span class="pro-fiveuf">
+                        PRO+5Uf
+                            </span>
+                        <span class="ntone">
+                        NT1
+                            </span>
+                        <span class="cdsone">
+                        CDS1
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO,5Uf,NT1,CDS1,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveuf">
+                        5Uf
+                            </span>
+                        <span class="ntone">
+                        NT1
+                            </span>
+                        <span class="cdsone">
+                        CDS1
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+        <a href="/result?parts=PRO,5U+NT1,CDS1,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveu-ntone">
+                        5U+NT1
+                            </span>
+                        <span class="cdsone">
+                        CDS1
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO+5U,NT2,CDS2,3U+Ter">
+            <h3>
+                        <span class="pro-fiveu">
+                        PRO+5U
+                            </span>
+                        <span class="nttwo">
+                        NT2
+                            </span>
+                        <span class="cdstwo">
+                        CDS2
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO,5U,NT2,CDS2,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveu">
+                        5U
+                            </span>
+                        <span class="nttwo">
+                        NT2
+                            </span>
+                        <span class="cdstwo">
+                        CDS2
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO+5Uf,NT1,NT2,CDS2,3U+Ter">
+            <h3>
+                        <span class="pro-fiveuf">
+                        PRO+5Uf
+                            </span>
+                        <span class="ntone">
+                        NT1
+                            </span>
+                        <span class="nttwo">
+                        NT2
+                            </span>
+                        <span class="cdstwo">
+                        CDS2
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO,5U,NT1,NT2,CDS2,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveuf">
+                        5Uf
+                            </span>
+                        <span class="ntone">
+                        NT1
+                            </span>
+                        <span class="nttwo">
+                        NT2
+                            </span>
+                        <span class="cdstwo">
+                        CDS2
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO,5U+NT1,NT2,CDS2,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveu-ntone">
+                        5U+NT1
+                            </span>
+                        <span class="nttwo">
+                        NT2
+                            </span>
+                        <span class="cdstwo">
+                        CDS2
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+    </div>
+
+</div>
+
+<div class="tagType">
+    <h2>C terminal tags <span class="caret"></span></h2>
+
+    <div class="toggle-section">
+
+        <a href="/result?parts=PRO+5U,CDS1ns,CT,3U+Ter">
+            <h3>
+                        <span class="pro-fiveu">
+                        PRO+5U
+                            </span>
+                        <span class="cdsonens">
+                        CDS1ns
+                            </span>
+                        <span class="ct">
+                        CT
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO,5U,CDS1ns,CT,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveu">
+                        5U
+                            </span>
+                        <span class="cdsonens">
+                        CDS1ns
+                            </span>
+                        <span class="ct">
+                        CT
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+    </div>
+
+</div>
+<div class="tagType">
+    <h2>N and C terminal tags <span class="caret"></span></h2>
+
+    <div class="toggle-section">
+
+        <a href="/result?parts=PRO+5Uf,NT1,CDS1ns,CT,3U+Ter">
+            <h3>
+                        <span class="pro-fiveuf">
+                        PRO+5Uf
+                            </span>
+                        <span class="ntone">
+                        NT1
+                            </span>
+                        <span class="cdsonens">
+                        CDS1ns
+                            </span>
+                        <span class="ct">
+                        CT
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+
+        <a href="/result?parts=PRO,5Uf,NT1,CDS1ns,CT,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveuf">
+                        5Uf
+                            </span>
+                        <span class="ntone">
+                        NT1
+                            </span>
+                        <span class="cdsonens">
+                        CDS1ns
+                            </span>
+                        <span class="ct">
+                        CT
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+        <a href="/result?parts=PRO,5U+NT,CDS1ns,CT,3U+Ter">
+            <h3>
+                        <span class="pro">
+                        PRO
+                            </span>
+                        <span class="fiveu-ntone">
+                        5U+NT1
+                            </span>
+                        <span class="cdsonens">
+                        CDS1ns
+                            </span>
+                        <span class="ct">
+                        CT
+                            </span>
+                        <span class="threeu-ter">
+                        3U+Ter
+                            </span>
+            </h3>
+        </a>
+    </div>
+
+</div>
+
+</div>
 
 </section>
 
