@@ -97,8 +97,8 @@ print("\n");
     for my $feat_object ($seq_object_vector->get_SeqFeatures) {
         if($feat_object->primary_tag eq $partToReplaceInVector){
             print "YOU SHOULD SEE THIS ONLY ONCE!!!\n";
-            $areaToReplaceStart = $feat_object->start;
-            $areaToReplaceEnd = $feat_object->end;
+            $areaToReplaceStart = $feat_object->start-1;
+            $areaToReplaceEnd = $feat_object->end+1;
          }
     }
     print("cannot have features between $areaToReplaceStart and $areaToReplaceEnd\n");
@@ -170,8 +170,8 @@ $stupidNumber+=1;
     }
 
 #TODO PUT FULL SEQ TOGETHER
-    my $beforeSplit = $seq_object_vector->subseq(1, $areaToReplaceStart-1);
-    my $afterSplit = $seq_object_vector->subseq($areaToReplaceEnd+1, $seq_object_vector->length);
+    my $beforeSplit = $seq_object_vector->subseq(1, $areaToReplaceStart);
+    my $afterSplit = $seq_object_vector->subseq($areaToReplaceEnd, $seq_object_vector->length);
 #    FIXME THESE MAY NEED TO BE -1'd and +1'd further up the channel
 
 
