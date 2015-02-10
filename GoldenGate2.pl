@@ -98,7 +98,7 @@ print("\n");
         if($feat_object->primary_tag eq $partToReplaceInVector){
             print "YOU SHOULD SEE THIS ONLY ONCE!!!\n";
             $areaToReplaceStart = $feat_object->start-1;
-            $areaToReplaceEnd = $feat_object->end;
+            $areaToReplaceEnd = $feat_object->end+1;
          }
     }
     print("cannot have features between $areaToReplaceStart and $areaToReplaceEnd\n");
@@ -160,7 +160,7 @@ $looper+=1;
         my $feature = $f->{'feature'};
         my $seq = $f->{'seq'};
         my $thisFeatureDiff = $feature->start() + $diffBetweenRemovedAndAdded;
-        $feature->start($thisFeatureDiff);
+        $feature->start($thisFeatureDiff+1);
         my $len = $feature->start()+length($seq)-1;
         $feature->end($len);
     }
