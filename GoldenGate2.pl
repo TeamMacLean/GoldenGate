@@ -98,7 +98,7 @@ print("\n");
         if($feat_object->primary_tag eq $partToReplaceInVector){
             print "YOU SHOULD SEE THIS ONLY ONCE!!!\n";
             $areaToReplaceStart = $feat_object->start-1;
-            $areaToReplaceEnd = $feat_object->end+1;
+            $areaToReplaceEnd = $feat_object->end;
          }
     }
     print("cannot have features between $areaToReplaceStart and $areaToReplaceEnd\n");
@@ -106,7 +106,6 @@ print("\n");
 
 #TODO NOW PUT ALL TO ARRAY IF NOT IN RANGE TO REPLACED AREA
     for my $feat_object ($seq_object_vector->get_SeqFeatures) {
-
         if($feat_object->primary_tag ne $partToReplaceInVector){ #do not add the part we are removing to list
             if(!($feat_object->start > $areaToReplaceStart && $feat_object->start < $areaToReplaceEnd) || !($feat_object->end > $areaToReplaceStart && $feat_object->end < $areaToReplaceEnd)){ #is not in range or part being removed
                 my $featureHash = {
@@ -120,14 +119,14 @@ print("\n");
 
 
 #TODO REMOVE OVERHANGS HERE!!!!!!!!!!
-my $stupidNumber = 0;
+my $looper = 0;
 for my $f (@goldenGateNewFeatures){
-if($stupidNumber > 0){
-$f->{seq} = substr($f->{seq}, 4,length($f->{seq}));
+if($looper > 0){
+$f->{seq} = substr($f->{seq}, 4);
 }
-$stupidNumber+=1;
+$looper+=1;
 }
-#FIXME FIXME FIXME
+
 
 #TODO TELL FEATURES ABOUT POSITION DIFFERENCES
 
@@ -149,12 +148,11 @@ $stupidNumber+=1;
     for my $f (@goldenGateNewFeatures){
         my $feature = $f->{'feature'};
         my $seq = $f->{seq};
-#        my $thisFeatureDiff = $feature->start() + $diffBetweenRemovedAndAdded;
-#        $feature->start($thisFeatureDiff);
-        $feature->start($tmp);
+
+        my $num = 0;
+        $feature->start($tmp-$num);
+
         $tmp+=length($seq);
-#        my $len = $feature->start()+length($seq);
-#        $feature->end($feature->start()+$len);
         $feature->end($tmp);
     }
 #TODO UPDATE FOR VECTOR FEATURES
@@ -163,9 +161,7 @@ $stupidNumber+=1;
         my $seq = $f->{'seq'};
         my $thisFeatureDiff = $feature->start() + $diffBetweenRemovedAndAdded;
         $feature->start($thisFeatureDiff);
-#        p $feature->start();
-#        p $f->{'feature'}->start();
-        my $len = $feature->start()+length($seq);
+        my $len = $feature->start()+length($seq)-1;
         $feature->end($len);
     }
 

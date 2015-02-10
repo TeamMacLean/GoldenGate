@@ -435,81 +435,75 @@ a {
 }
 
 .ct-chart .ct-series.ct-series-a .ct-bar, .ct-chart .ct-series.ct-series-a .ct-line, .ct-chart .ct-series.ct-series-a .ct-point, .ct-chart .ct-series.ct-series-a .ct-slice.ct-donut {
-    stroke: #F1C40F;
+    stroke: #16A085;
 }
 
 .ct-chart .ct-series.ct-series-b .ct-bar, .ct-chart .ct-series.ct-series-b .ct-line, .ct-chart .ct-series.ct-series-b .ct-point, .ct-chart .ct-series.ct-series-b .ct-slice.ct-donut {
-    stroke: #E67E22;
+    stroke: #27AE60;
 }
 
 .ct-chart .ct-series.ct-series-c .ct-bar, .ct-chart .ct-series.ct-series-c .ct-line, .ct-chart .ct-series.ct-series-c .ct-point, .ct-chart .ct-series.ct-series-c .ct-slice.ct-donut {
-    stroke: #E74C3C;
+    stroke: #2980B9;
 }
 
 .ct-chart .ct-series.ct-series-d .ct-bar, .ct-chart .ct-series.ct-series-d .ct-line, .ct-chart .ct-series.ct-series-d .ct-point, .ct-chart .ct-series.ct-series-d .ct-slice.ct-donut {
-    stroke: #9B59B6;
+    stroke: #8E44AD;
 }
 
 .ct-chart .ct-series.ct-series-e .ct-bar, .ct-chart .ct-series.ct-series-e .ct-line, .ct-chart .ct-series.ct-series-e .ct-point, .ct-chart .ct-series.ct-series-e .ct-slice.ct-donut {
-    stroke: #3498DB;
+    stroke: #E67E22;
 }
 
 .ct-chart .ct-series.ct-series-f .ct-bar, .ct-chart .ct-series.ct-series-f .ct-line, .ct-chart .ct-series.ct-series-f .ct-point, .ct-chart .ct-series.ct-series-f .ct-slice.ct-donut {
-    stroke: #1ABC9C;
+    stroke: #D35400;
 }
 
 .ct-chart .ct-series.ct-series-g .ct-bar, .ct-chart .ct-series.ct-series-g .ct-line, .ct-chart .ct-series.ct-series-g .ct-point, .ct-chart .ct-series.ct-series-g .ct-slice.ct-donut {
-    stroke: #2ECC71;
+    stroke: #C0392B;
+}
+
+g:first-child path {
+    stroke: #34495E !important;
 }
 
 /*for picker*/
 .toggle-section a {
-    color: white;
+    color: #ECF0F1;
 }
 
 .toggle-section a:hover {
     color: white;
 }
 
-
 .toggle-section span {
     padding: 8px;
 }
 
-
-.toggle-section span:nth-child(1){
-/*.toggle-section .pro {*/
-    background: #F1C40F;
+.toggle-section span:nth-child(1) {
+    background: #16A085;
 }
 
-.toggle-section span:nth-child(2){
-/*.toggle-section .pro-fiveu {*/
+.toggle-section span:nth-child(2) {
+    background: #27AE60;
+}
+
+.toggle-section span:nth-child(3) {
+    background: #2980B9;
+}
+
+.toggle-section span:nth-child(4) {
+    background: #8E44AD;
+}
+
+.toggle-section span:nth-child(5) {
     background: #E67E22;
 }
 
-.toggle-section span:nth-child(3){
-/*.toggle-section .pro-fiveuf {*/
-    background: #E74C3C;
+.toggle-section span:nth-child(6) {
+    background: #D35400;
 }
 
-.toggle-section span:nth-child(4){
-/*.toggle-section .fiveu {*/
-    background: #9B59B6;
-}
-
-.toggle-section span:nth-child(5){
-/*.toggle-section .fiveuf {*/
-    background: #3498DB;
-}
-
-.toggle-section span:nth-child(6){
-/*.toggle-section .fiveu-ntone {*/
-    background: #1ABC9C;
-
-}
-
-.toggle-section span:nth-child(7){
-/*.toggle-section .cdsone {*/
-    background: #2ECC71;
+.toggle-section span:nth-child(7) {
+    background: #C0392B;
 }
 
