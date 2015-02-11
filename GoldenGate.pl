@@ -68,9 +68,10 @@ print("\n");
 #TODO get all features to be added
 
 #FIXME ADD SUPPORT FOR CUSTOM SEQ
+p $parts;
 
     foreach my $realPart (@$parts) {
-    p $realPart;
+#    p $realPart;
 
         if($realPart->{file}){
         print "IT HAS A FILE\n";
@@ -84,8 +85,6 @@ print("\n");
                 #TODO FIX LABEL
                 $feat_object->primary_tag($realPart->{type});
 
-p $feat_object;
-
                 my $featureHash = {
                      feature => $feat_object,
                      seq => $seq_object_part->subseq($feat_object->start,$feat_object->end)
@@ -95,15 +94,16 @@ p $feat_object;
                 }
             }
         } else {
+
             my $feat_object = Bio::SeqFeature::Generic->new(
                 -primary      => $realPart->{type}, # -primary_tag is a synonym
             );
+
                 my $featureHash = {
                     feature => $feat_object,
                     seq => $realPart->{seq}
                 };
                 push(@goldenGateNewFeatures, $featureHash);
-                last;
         }
     }
 

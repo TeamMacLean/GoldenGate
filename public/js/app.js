@@ -159,10 +159,10 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
     function resetCustomPart(part) {
         part._id = "CUSTOM";
-        part.file = undefined;
-        part.overhang_l = "";
-        part.overhang_r = "";
-        part.seq = "";
+        part.file = null;
+        part.overhang_l = null;
+        part.overhang_r = null;
+        part.seq = null;
         part.type = "CUSTOM";
     }
 
@@ -175,13 +175,20 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
         if (seq.length >= 4) {
             part.overhang_l = seq.substring(0, 4);
+        } else {
+            part.overhang_l = null;
         }
 
         if (seq.length >= 8) {
             part.overhang_r = seq.substring(seq.length - 4);
+        } else {
+            part.overhang_r = null;
         }
+
         if (seq.length > 8) {
             part.seq = seq;
+        } else {
+            part.seq = null;
         }
         $scope.checkCompat(selector);
     };
@@ -201,10 +208,19 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         var good = true;
 
         $scope.gateParts.forEach(function (part) {
+
+            if (!part.overhang_r || !part.overhang_l) {
+                console.log('bad part', part);
+                good = false;
+            }
+
+
             if (prev && prev.overhang_r !== part.overhang_l) {
+                console.log('bad prev', prev.overhang_r, part.overhang_l);
                 good = false;
             }
             prev = part;
+//            }
         });
 
         return good;
