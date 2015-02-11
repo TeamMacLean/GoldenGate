@@ -341,7 +341,6 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
         if (!parts || !parts.length || !parts.length > 0 || parts.length != $scope.partTypes.length || !test > 0) {
 
-
             //TODO ERROR
             $scope.addAlert($scope.alertTypes.warning, 'Please make a selection of each part type');
             return;
@@ -349,26 +348,30 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
 
         if ($scope.finalCheck()) {
+
+            $('#loading').addClass('la-animate');
+
+
             var splitVector = vector.seq.split(vectorSplitter);
             if (splitVector && splitVector.length == 2) {
 
-                resultWrap.slideDown(400, function () {
-                    $scope.genChart();
-                });
+                $http.post('/buildit', [vector, parts]).success(function (outputFile) {
 
+                    $('#loading').removeClass('la-animate');
+                    $scope.genChart();
+                    $scope.outputDownload = outputFile;
+                    resultWrap.slideDown(400);
+
+                }).error(function (response, code) {
+                    $('#loading').removeClass('la-animate');
+                    $scope.addAlert($scope.alertTypes.danger, 'http post error ' + code);
+                });
 
             } else {
                 //bad
                 $scope.addAlert($scope.alertTypes.warning, 'splitVector not valid or splitVector.length != 2');
             }
 
-
-            $http.post('/buildit', [vector, parts]).success(function (outputFile) {
-                $scope.outputDownload = outputFile;
-
-            }).error(function (response, code) {
-                $scope.addAlert($scope.alertTypes.danger, 'http post error ' + code);
-            });
         } else {
             $scope.addAlert($scope.alertTypes.warning, 'Parts to not build correctly');
         }

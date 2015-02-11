@@ -507,3 +507,73 @@ g:first-child path {
     background: #C0392B;
 }
 
+
+
+
+
+/* Effect 10: Corner indicator */
+#loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: #E74C3C;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    -webkit-transform: translateX(100%) translateY(-100%) rotate(45deg);
+    transform: translateX(100%) translateY(-100%) rotate(45deg);
+    pointer-events: none;
+    z-index:99999;
+}
+
+#loading.la-animate {
+    -webkit-transform: translateX(50%) translateY(-50%) rotate(45deg);
+    transform: translateX(50%) translateY(-50%) rotate(45deg);
+}
+
+/* Loading circle idea from http://codepen.io/Metty/details/lgJck */
+#loading::before,
+#loading::after {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    display: block;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    content: '';
+}
+
+#loading::before {
+    margin-left: -40px;
+    width: 80px;
+    height: 80px;
+    border-right-color: #C0392B;
+    border-left-color: #C0392B;
+    -webkit-animation: rotation 3s linear infinite;
+    animation: rotation 3s linear infinite;
+}
+
+#loading::after {
+    bottom: 50px;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    border-top-color: #C0392B;
+    border-bottom-color: #C0392B;
+    -webkit-animation: rotation 1s linear infinite;
+    animation: rotation 1s linear infinite;
+}
+
+
+@-webkit-keyframes rotation {
+    0% 		{ -webkit-transform: rotate(0deg); }
+    50% 	{ -webkit-transform: rotate(180deg); }
+    100% 	{ -webkit-transform: rotate(360deg); }
+}
+
+@keyframes rotation {
+    0% 		{ transform: rotate(0deg); }
+    50% 	{ transform: rotate(180deg); }
+    100% 	{ transform: rotate(360deg); }
+}
