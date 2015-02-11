@@ -5,7 +5,7 @@ use warnings;
 use Mojolicious::Lite;
 use Mango;
 use Mojo;
-use Mojo::Transaction::WebSocket;
+#use Mojo::Transaction::WebSocket;
 use Data::Printer;
 use JSON;
 use Bio::SeqIO;
@@ -15,11 +15,11 @@ use Bio::SeqFeature::Generic;
 use Time::HiRes qw(gettimeofday);
 
 my $mango = Mango->new('mongodb://localhost:27017');
-my $featureName = 'Golden_Gate_Par';
+
+my $partToReplaceInVector = 'Golden_Gate_Cas';
+my $featureToPullFromPart = 'Golden_Gate_Par';
 my $partsFolder = dirname(abs_path($0)).'/data/Parts';
 my $vectorsFolder = dirname(abs_path($0)).'/data/Vectors';
-
-
 
 get '/' =>  sub {
     my $self = shift;
@@ -46,146 +46,224 @@ get '/vectors' => sub {
 };
 
 post '/buildit' => sub {
+print("\n");
     my $self = shift;
-    my $request_object = $self->req;
-    my $update = Mojo::JSON->new->decode( $self->req->body );
-    my $partToReplace = 'Golden_Gate_Cas';
+#    body as json
+    my $bodyDecoded = Mojo::JSON->new->decode( $self->req->body );
 #    get vector from req
-    my $vector = $update->[0];
+    my $vector = $bodyDecoded->[0];
 #    get parts from req
-    my $parts = $update->[1];
-#    get io of vector
-    my $seqio_object_vector = Bio::SeqIO->new(-file => $vectorsFolder."/".$vector->{file} );
-    my $seq_object_vector = $seqio_object_vector->next_seq;
-    my @finalParts;
-    my $beforeBridgeSeq;
-    my $afterBridgeSeq;
-    my @features = $seq_object_vector->get_SeqFeatures(); # just top level
-    my $seq = $seq_object_vector->seq;
-    my $beforeBridgeLength;
-    my $originalSeqLength = length($seq);
-    my $bridgeLength = 0;
-    my $splitDifference = 0;
-
-    my $ggStart;
-    my $ggEnd;
+    my $parts = $bodyDecoded->[1];
 
 
-
-#all features
-    foreach my $feat ( @features ) {
-
-        if($feat->primary_tag ne $partToReplace){
-            my $thisSeq = $feat->seq->seq();
-
-            my $start = $feat->start+$splitDifference;
-            my $end = $feat->end+$splitDifference;
-
-            my $oldStart = $feat->start;
-            my $oldEnd = $feat->end;
-
-#            print($start, "\n");
-#            print($thisSeq, "\n");
-
-            if (defined($ggStart) && defined($ggEnd)){
+    my $areaToReplaceStart = 0;
+    my $areaToReplaceEnd = 0;
 
 
-#               if its within range of a removed feature
-                unless ($oldStart > $ggEnd && $oldStart < $ggStart || $oldEnd > $ggStart && $oldEnd < $ggEnd) {
-                    my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end, -strand => $feat->strand, -primary_tag => $feat->primary_tag);
-#                   TODO get tags
-                    foreach my $tag ($feat->get_all_tags) {
-                        my @fullTag = $feat->get_tag_values($tag);
-                        $newFeat->add_tag_value($tag, $fullTag[0]);
-                    }
+#TWO MOST IMPORTANT PARTS OF THIS CODE
+    my @goldenGateNewFeatures;
+    my @partsFromVector;
 
-                    push(@finalParts, $newFeat);
+
+#TODO get all features to be added
+
+#FIXME ADD SUPPORT FOR CUSTOM SEQ
+
+    foreach my $realPart (@$parts) {
+    p $realPart;
+
+        if($realPart->{file}){
+        print "IT HAS A FILE\n";
+
+            my $seqio_object_part = Bio::SeqIO->new(-file => $partsFolder."/".$realPart->{file} );
+            my $seq_object_part = $seqio_object_part->next_seq;
+
+            for my $feat_object ($seq_object_part->get_SeqFeatures) {
+                if($feat_object->primary_tag eq $featureToPullFromPart){
+
+                #TODO FIX LABEL
+                $feat_object->primary_tag($realPart->{type});
+
+p $feat_object;
+
+                my $featureHash = {
+                     feature => $feat_object,
+                     seq => $seq_object_part->subseq($feat_object->start,$feat_object->end)
+                };
+                    push(@goldenGateNewFeatures, $featureHash);
+                    last;
                 }
             }
         } else {
-
-$ggStart = $feat->start;
-$ggEnd = $feat->end;
-
-#print($ggStart, "\n");
-
-            my $newLength = 0;
-
-
-            $beforeBridgeSeq = substr($seq, 0, ($feat->start)-1);
-            $afterBridgeSeq = substr($seq, $feat->end, length($seq)-1);
-
-            my $removedLength = (length($seq) - length($beforeBridgeSeq)) - length($afterBridgeSeq);
-            $beforeBridgeLength = length($beforeBridgeSeq);
-
-            my @ggParts;
-
-
-            foreach my $realPart (@$parts) {
-                my $seqio_object_part = Bio::SeqIO->new(-file => $partsFolder."/".$realPart->{file} );
-                my $seq_object_part = $seqio_object_part->next_seq;
-
-                for my $feat_object ($seq_object_part->get_SeqFeatures) {
-                    if($feat_object->primary_tag eq $featureName){
-                        push(@ggParts, $feat_object);
-                        last;
-                     }
-                }
-            }
-            my $ggPartsLength = scalar @ggParts;
-            my $i = 1;
-            foreach my $part (@ggParts) {
-                my $thisSeq = $part->seq->seq();
-                $newLength = $newLength+length($thisSeq);
-
-#                This get the overlap correct
-                my $overhangOffset = 0;
-
-                if($i < $ggPartsLength){
-                #needs over hangs removed
-                    $thisSeq = substr($thisSeq, 0, length($thisSeq)-4);
-                    $overhangOffset = 4;
-                } else {
-                #doesnt need over hangs removed
-                    $thisSeq = substr($thisSeq, 0, length($thisSeq));
-                }
-
-
-                $i = $i+1;
-
-                $beforeBridgeSeq = $beforeBridgeSeq . $thisSeq;
-
-                my $start = index($beforeBridgeSeq, $thisSeq);
-                my $end = $start+length($thisSeq);
-
-                #TODO get label
-                my $newFeat = new Bio::SeqFeature::Generic(-start => $start, -end => $end+$overhangOffset, -strand => 1, -primary_tag => $feat->primary_tag);
-
-                push (@finalParts, $newFeat);
-            }
-
-            $splitDifference = $newLength - $removedLength;
-
-            print($removedLength, "\n");
-                        print($newLength, "\n");
-                        print($splitDifference, "\n");
+            my $feat_object = Bio::SeqFeature::Generic->new(
+                -primary      => $realPart->{type}, # -primary_tag is a synonym
+            );
+                my $featureHash = {
+                    feature => $feat_object,
+                    seq => $realPart->{seq}
+                };
+                push(@goldenGateNewFeatures, $featureHash);
+                last;
         }
     }
 
-    my $merged_seq = $beforeBridgeSeq . $afterBridgeSeq;
 
-    my $output_seq_obj = Bio::Seq->new(-seq => $merged_seq, -display_id => "CustomPart" );
+#TODO get vector
+    my $seqio_object_vector = Bio::SeqIO->new(-file => $vectorsFolder."/".$vector->{file} );
+    my $seq_object_vector = $seqio_object_vector->next_seq;
 
-    $output_seq_obj->add_SeqFeature(@finalParts);
+
+
+#TODO JUST GET START AND END OF FEATURE TO REPLACE
+
+    for my $feat_object ($seq_object_vector->get_SeqFeatures) {
+        if($feat_object->primary_tag eq $partToReplaceInVector){
+            print "YOU SHOULD SEE THIS ONLY ONCE!!!\n";
+            $areaToReplaceStart = $feat_object->start-1;
+            $areaToReplaceEnd = $feat_object->end+1;
+         }
+    }
+    print("cannot have features between $areaToReplaceStart and $areaToReplaceEnd\n");
+
+
+#TODO NOW PUT ALL TO ARRAY IF NOT IN RANGE TO REPLACED AREA
+    for my $feat_object ($seq_object_vector->get_SeqFeatures) {
+        if($feat_object->primary_tag ne $partToReplaceInVector){ #do not add the part we are removing to list
+            if(!($feat_object->start > $areaToReplaceStart && $feat_object->start < $areaToReplaceEnd) || !($feat_object->end > $areaToReplaceStart && $feat_object->end < $areaToReplaceEnd)){ #is not in range or part being removed
+                my $featureHash = {
+                    feature => $feat_object,
+                    seq => $seq_object_vector->subseq($feat_object->start,$feat_object->end)
+                };
+                push(@partsFromVector, $featureHash);
+            }
+        }
+    }
+
+
+#TODO REMOVE OVERHANGS HERE!!!!!!!!!!
+my $looper = 0;
+for my $f (@goldenGateNewFeatures){
+if($looper > 0){
+$f->{seq} = substr($f->{seq}, 4);
+}
+$looper+=1;
+}
+
+
+#TODO TELL FEATURES ABOUT POSITION DIFFERENCES
+
+    my $lenRemoved = $areaToReplaceEnd - $areaToReplaceStart;
+
+    print "amount removed = $lenRemoved\n";
+
+    my $newFeaturesLength = 0;
+    for my $f (@goldenGateNewFeatures){
+    $newFeaturesLength+=length($f->{seq});
+    }
+    print "length to add = $newFeaturesLength\n";
+
+    my $diffBetweenRemovedAndAdded = $newFeaturesLength - $lenRemoved;
+    print "DIFF =  $diffBetweenRemovedAndAdded\n";
+
+#TODO UPDATE FOR PART FEATURES
+    my $tmp = $areaToReplaceStart;
+    for my $f (@goldenGateNewFeatures){
+        my $feature = $f->{'feature'};
+        my $seq = $f->{seq};
+
+        my $num = 0;
+        $feature->start($tmp-$num);
+
+        $tmp+=length($seq);
+        $feature->end($tmp);
+    }
+#TODO UPDATE FOR VECTOR FEATURES
+    for my $f (@partsFromVector){
+        my $feature = $f->{'feature'};
+        my $seq = $f->{'seq'};
+        my $thisFeatureDiff = $feature->start() + $diffBetweenRemovedAndAdded;
+        $feature->start($thisFeatureDiff+1);
+        my $len = $feature->start()+length($seq)-1;
+        $feature->end($len);
+    }
+
+#TODO PUT FULL SEQ TOGETHER
+    my $beforeSplit = $seq_object_vector->subseq(1, $areaToReplaceStart);
+    my $afterSplit = $seq_object_vector->subseq($areaToReplaceEnd, $seq_object_vector->length);
+#    FIXME THESE MAY NEED TO BE -1'd and +1'd further up the channel
+
+
+
+    my $finalSeq = $beforeSplit;
+    for my $f (@goldenGateNewFeatures){
+        $finalSeq.=$f->{'seq'};
+        print " this seq $f->{'seq'}\n";
+    }
+    $finalSeq .= $afterSplit;
+
+
+#    my $dog = length($afterSplit);
+#    print "count this $dog\n";
+
+
+
+
+#TODO TEST: FIND ALL FEATURES AGAIN
+    #remove all features from vector
+    $seq_object_vector->flush_SeqFeatures();
+
+
+$seq_object_vector->seq($finalSeq);
+#part features
+    for my $f (@goldenGateNewFeatures){
+        my $feature = $f->{'feature'};
+        $seq_object_vector->add_SeqFeature($feature);
+    }
+#vector features
+    for my $f (@partsFromVector){
+        my $feature = $f->{'feature'};
+        $seq_object_vector->add_SeqFeature($feature);
+    }
+
+
+#print "doing indexes\n";
+#for my $f (@partsFromVector){
+#    my $index = index($finalSeq, $f->{'seq'});
+#    if ($index != -1) {
+##    #    TODO set new start and end
+##    #    TODO add feature to gb
+#    } else {
+#     print "COULD NOT FIND SEQ: $f->{'seq'}\n";
+#    }
+#}
+
+
+
+
+
+#    $seq_object_vector->add_SeqFeature(@partsFromVector);
+#    $seq_object_vector->add_SeqFeature(@goldenGateNewFeatures);
+
+
+
+
+
+
+
+#p $seq_object_vector->seq;
+
+
+#TODO generate output file
+    #print output
+#    p $seq_object_vector;
+
     my $timestamp = int (gettimeofday * 1000);
     my $io = Bio::SeqIO->new(-format => "genbank", -file => ">public/output/out_$timestamp.gb" );
-    $io->write_seq($output_seq_obj);
+    $io->write_seq($seq_object_vector);
 
-#   Render Out
+#TODO render
     $self->render(text => "output/out_$timestamp.gb");
 };
-
-
 
 
 

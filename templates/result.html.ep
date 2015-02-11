@@ -45,11 +45,11 @@
                 <div class="col-sm-{{getColSize()}}">
                     <h3 class="partType">{{part.type}}</h3>
                     <select id="{{part.type}}" class="form-control seq-selector"
-                            ng-options="opt as opt.label for opt in part.parts" ng-change="checkCompat(this)"
+                            ng-options="opt as opt.label for opt in part.parts" ng-change="changePart(this)"
                             ng-model="opt">
                         <option value="" selected>---</option>
                     </select>
-                    <input type="text" class="form-control" ng-show="false">
+                    <input type="text" ng-model="customSeq" class="form-control" ng-show="opt.label == 'CUSTOM'" ng-change="updateCustomPart(this)" >
                 </div>
             </div>
         </div>

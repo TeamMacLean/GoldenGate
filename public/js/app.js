@@ -30,7 +30,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
     var vectorSplitter = 'GGAGTGAGACCGCAGCTGGCACGACAGGTTTGCCGACTGGAAAGCGGGCAGTGAGCGCAACGCAATTAATGTGAGTTAGCTCACTCATTAGGCACCCCAGGCTTTACACTTTATGCTTCCGGCTCGTATGTTGTGTGGAATTGTGAGCGGATAACAATTTCACACAGGAAACAGCTATGACCATGATTACGCCAAGCTTGCATGCCTGCAGGTCGACTCTAGAGGATCCCCGGGTACCGAGCTCGAATTCACTGGCCGTCGTTTTACAACGTCGTGACTGGGAAAACCCTGGCGTTACCCAACTTAATCGCCTTGCAGCACATCCCCCTTTCGCCAGCTGGCGTAATAGCGAAGAGGCCCGCACCGATCGCCCTTCCCAACAGTTGCGCAGCCTGAATGGCGAATGGCGCCTGATGCGGTATTTTCTCCTTACGCATCTGTGCGGTATTTCACACCGCATATGGTGCACTCTCAGTACAATCTGCTCTGATGCCGCATAGTTAAGCCAGCCCCGACACCCGCCAACACCCGCTGACGCGCCCTGACGGGCTTGTCTGCTCCCGGCATCCGCTTACAGACAAGCTGTGACGGTCTCACGCT';
 //    make the scope aware of part groups
-    $scope.partsGroups = {};
+    $scope.partsGroups = [];
 
 
 //    to allow a blank option in selects
@@ -104,13 +104,18 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
                 if (typeCount < 1) {
                     $scope.notEnoughParts = true;
                 }
-                //            //TODO add custom part option
-//                $scope.partsGroups[int].parts.push(customPart);
+
 
             });
             if ($scope.notEnoughParts == true) {
                 $scope.addAlert($scope.alertTypes.danger, 'We do not have parts for all the types you have requested');
             }
+
+            $scope.partsGroups.forEach(function (pg) {
+                pg.parts.push({label: 'CUSTOM'});
+            });
+
+
         }).error(function () {
             $scope.addAlert($scope.alertTypes.danger, 'We could not get the parts from /parts, the app will fail');
         });
@@ -152,17 +157,70 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         }
     };
 
-//    compare the selects to the left and right, disable incompatible parts
+    function resetCustomPart(part) {
+        part._id = "CUSTOM";
+        part.file = undefined;
+        part.overhang_l = "";
+        part.overhang_r = "";
+        part.seq = "";
+        part.type = "CUSTOM";
+    }
+
+    $scope.updateCustomPart = function (selector) {
+
+
+        var seq = selector.customSeq;
+        var part = selector.part.parts[selector.part.parts.length - 1];
+
+
+        if (seq.length >= 4) {
+            part.overhang_l = seq.substring(0, 4);
+        }
+
+        if (seq.length >= 8) {
+            part.overhang_r = seq.substring(seq.length - 4);
+        }
+        if (seq.length > 8) {
+            part.seq = seq;
+        }
+        $scope.checkCompat(selector);
+    };
+
+    $scope.changePart = function (selector) {
+        console.log(selector);
+        var currentPart = selector.opt;
+        if (currentPart.label == "CUSTOM") {
+            console.log('gonna reset custom part');
+            resetCustomPart(currentPart);
+        }
+        $scope.checkCompat(selector);
+    };
+
+    $scope.finalCheck = function () {
+        var prev;
+        var good = true;
+
+        $scope.gateParts.forEach(function (part) {
+            if (prev && prev.overhang_r !== part.overhang_l) {
+                good = false;
+            }
+            prev = part;
+        });
+
+        return good;
+    };
+
+
     $scope.checkCompat = function (selector) {
 
+
         var currentPart = selector.opt;
+
 
         $scope.gateParts[selector.$index] = currentPart;
 
 //        if the selector is blank/reset then it will not have any data bound to it
         if (currentPart) {
-
-
 //            is not far left
             if (!selector.$first) {
                 processLeft();
@@ -192,12 +250,14 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
             if (selector.$$prevSibling && selector.$$prevSibling.part) {
                 selector.$$prevSibling.part.parts.forEach(function (part) {
                     enableOption(selector.$$prevSibling, part);
-                    if (currentPart.overhang_l == part.overhang_r) {
+//                    if (currentPart.overhang_l == part.overhang_r || currentPart.label == "CUSTOM" || part.label == "CUSTOM") {
+                    if (currentPart.overhang_l == part.overhang_r || part.label == "CUSTOM") {
                         enableOption(selector.$$prevSibling, part);
                     } else {
                         disableOption(selector.$$prevSibling, part);
                     }
                 });
+
             }
         }
 
@@ -205,7 +265,8 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         function processRight() {
             if (selector.$$nextSibling && selector.$$nextSibling.part) {
                 selector.$$nextSibling.part.parts.forEach(function (part) {
-                    if (currentPart.overhang_r == part.overhang_l) {
+//                    if (currentPart.overhang_r == part.overhang_l || currentPart.label == "CUSTOM" || part.label == "CUSTOM") {
+                    if (currentPart.overhang_r == part.overhang_l || part.label == "CUSTOM") {
                         enableOption(selector.$$nextSibling, part);
                     } else {
                         disableOption(selector.$$nextSibling, part);
@@ -271,26 +332,30 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
         }
 
 
-        var splitVector = vector.seq.split(vectorSplitter);
-        if (splitVector && splitVector.length == 2) {
+        if ($scope.finalCheck()) {
+            var splitVector = vector.seq.split(vectorSplitter);
+            if (splitVector && splitVector.length == 2) {
 
-            resultWrap.slideDown(400, function () {
-                $scope.genChart();
+                resultWrap.slideDown(400, function () {
+                    $scope.genChart();
+                });
+
+
+            } else {
+                //bad
+                $scope.addAlert($scope.alertTypes.warning, 'splitVector not valid or splitVector.length != 2');
+            }
+
+
+            $http.post('/buildit', [vector, parts]).success(function (outputFile) {
+                $scope.outputDownload = outputFile;
+
+            }).error(function (response, code) {
+                $scope.addAlert($scope.alertTypes.danger, 'http post error ' + code);
             });
-
-
         } else {
-            //bad
-            $scope.addAlert($scope.alertTypes.warning, 'splitVector not valid or splitVector.length != 2');
+            $scope.addAlert($scope.alertTypes.warning, 'Parts to not build correctly');
         }
-
-
-        $http.post('/buildit', [vector, parts]).success(function (outputFile) {
-            $scope.outputDownload = outputFile;
-
-        }).error(function (response, code) {
-            $scope.addAlert($scope.alertTypes.danger, 'http post error ' + code);
-        });
     };
 
 
@@ -409,7 +474,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
             var seriesName = labels[position];
 
             //if ($point.css('stroke-width') == chartWidth + 'px') {
-                $point.animate({'stroke-width': chartHoverWidth + 'px'}, animationSpeed, easeOutQuad);
+            $point.animate({'stroke-width': chartHoverWidth + 'px'}, animationSpeed, easeOutQuad);
             //}
 
             $toolTip.html(seriesName).show();
