@@ -349,6 +349,7 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
 
         if ($scope.finalCheck()) {
 
+            $('body').addClass('disabled');
             $('#loading').addClass('la-animate');
 
 
@@ -361,6 +362,10 @@ app.controller('partController', ['$scope', '$http', '$location', function ($sco
                     $scope.genChart();
                     $scope.outputDownload = outputFile;
                     resultWrap.slideDown(400);
+
+                    $('html,body').animate({
+                        scrollTop: $("#resultwrap").offset().top - 70
+                    });
 
                 }).error(function (response, code) {
                     $('#loading').removeClass('la-animate');
